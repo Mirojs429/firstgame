@@ -1,0 +1,64 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class Enemy : MonoBehaviour
+{
+    [HideInInspector] public bool mustPatrol;
+    public Rigidbody2D rb;
+    public float speed;
+    public Transform groundCheck, wallCheck, hitPointA, hitPointB;
+    private bool mustFlip;
+    public LayerMask whatIsGround, whatIsPlayer;
+
+    private bool hitA, hitB;
+
+    void Start()
+    {
+        mustPatrol = true;
+    }
+
+
+    void Update()
+    {
+        if (mustPatrol)
+        {
+            Patrol();
+        }
+
+        hitA = Physics2D.OverlapCircle(hitPointA.position, 0.1f, whatIsPlayer);
+        hitB = Physics2D.OverlapCircle(hitPointB.position, 0.1f, whatIsPlayer);
+
+        if (hitA || hitB)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+    }
+
+    void FixedUpdate()
+    {
+        if (mustPatrol)
+        {
+            mustFlip = !Physics2D.OverlapCircle(groundCheck.position, 0.1f, whatIsGround);
+        }
+    }
+
+    void Patrol()
+    {
+        if (mustFlip || Physics2D.OverlapCircle(wallCheck.position, 0.1f, whatIsGround))
+        {
+            Flip();
+        }
+        rb.velocity = new Vector2(speed * Time.fixedDeltaTime, rb.velocity.y);
+    }
+
+    void Flip()
+    {
+        mustPatrol = false;
+        transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
+        speed *= -1;
+        mustPatrol = true;
+    }
+}
