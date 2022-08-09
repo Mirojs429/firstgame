@@ -15,7 +15,8 @@ public class FireEnemy : MonoBehaviour
     private bool hitA, hitB;
 
     [Header("Groun & wall check")]
-    public Transform player;
+    private Transform player;
+    private GameObject playerGO;
     public float range;
     private float distace;
 
@@ -29,6 +30,11 @@ public class FireEnemy : MonoBehaviour
     void Start()
     {
         mustPatrol = true;
+        playerGO = GameObject.FindGameObjectWithTag("Player");
+        if(playerGO != null)
+        {
+            player = playerGO.GetComponent<Transform>();
+        }
     }
 
 
@@ -44,6 +50,7 @@ public class FireEnemy : MonoBehaviour
 
         if (hitA || hitB)
         {
+            PlayerScore.ResetScore();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 

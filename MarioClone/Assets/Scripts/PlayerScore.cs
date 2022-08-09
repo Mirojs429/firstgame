@@ -16,4 +16,9 @@ public class PlayerScore : MonoBehaviour
     {
         coinsScore.text = "Coins: " + coins.ToString();
     }
+
+    public static void ResetScore()
+    {
+        coins = 0;
+    }
 }

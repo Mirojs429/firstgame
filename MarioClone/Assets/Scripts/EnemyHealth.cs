@@ -6,15 +6,22 @@ public class EnemyHealth : MonoBehaviour
 {
     public Transform deadCheck;
     public LayerMask whatIsPlayer;
-    public Transform player;
     public float silaOdraz;
     public GameObject dead;
 
     private Rigidbody2D rb;
+    private GameObject playerGO;
+    private Transform player;
+
 
     void Start()
     {
         rb = transform.GetComponent<Rigidbody2D>();
+        playerGO = GameObject.FindGameObjectWithTag("Player");
+        if (playerGO != null)
+        {
+            player = playerGO.GetComponent<Transform>();
+        }
     }
 
     void Update()
@@ -26,6 +33,7 @@ public class EnemyHealth : MonoBehaviour
             Instantiate(dead, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
+
     }
 
 }

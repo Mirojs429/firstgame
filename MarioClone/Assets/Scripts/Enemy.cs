@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour
 
         if (hitA || hitB)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            PlayerHealth.Death();
         }
 
     }
