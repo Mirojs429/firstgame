@@ -24,6 +24,7 @@ public class FireEnemy : MonoBehaviour
     private float wait;
     public Transform firePoint;
     public float bulletForce;
+    public Animator anim;
 
     void Start()
     {
@@ -68,6 +69,7 @@ public class FireEnemy : MonoBehaviour
         if (mustPatrol)
         {
             mustFlip = !Physics2D.OverlapCircle(groundCheck.position, 0.1f, whatIsGround);
+            anim.SetBool("Shoot", false);
         }
     }
 
@@ -91,6 +93,7 @@ public class FireEnemy : MonoBehaviour
     void Attack()
     {
         mustPatrol = false;
+        anim.SetBool("Shoot", true);
         rb.velocity = Vector2.zero;
         wait -= Time.deltaTime;
 
