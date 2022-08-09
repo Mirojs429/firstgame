@@ -14,9 +14,9 @@ public class Coin : MonoBehaviour
             if(colis == 1)
             {
                 PlayerScore.coins += 1;
+                Destroy(gameObject);
             }
         }
-        Destroy(gameObject);
 
     }
 }
