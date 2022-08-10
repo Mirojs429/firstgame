@@ -32,6 +32,8 @@ public class FireEnemy : MonoBehaviour
     void Start()
     {
         mustPatrol = true;
+        kill = false;
+
         playerGO = GameObject.FindGameObjectWithTag("Player");
         if(playerGO != null)
         {
@@ -47,13 +49,7 @@ public class FireEnemy : MonoBehaviour
             Patrol();
         }
 
-        hitA = Physics2D.OverlapCircle(hitPointA.position, 0.1f, whatIsPlayer);
-        hitB = Physics2D.OverlapCircle(hitPointB.position, 0.1f, whatIsPlayer);
-
-        if (hitA || hitB)
-        {
-            kill = true;
-        }
+        
 
         distace = Vector2.Distance(transform.position, player.position);
         if (distace <= range)
@@ -78,6 +74,14 @@ public class FireEnemy : MonoBehaviour
         {
             mustFlip = !Physics2D.OverlapCircle(groundCheck.position, 0.1f, whatIsGround);
             anim.SetBool("Shoot", false);
+        }
+
+        hitA = Physics2D.OverlapCircle(hitPointA.position, 0.1f, whatIsPlayer);
+        hitB = Physics2D.OverlapCircle(hitPointB.position, 0.1f, whatIsPlayer);
+
+        if (hitA || hitB)
+        {
+            kill = true;
         }
     }
 

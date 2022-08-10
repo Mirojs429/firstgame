@@ -31,7 +31,7 @@ public class EnemyHealth : MonoBehaviour
             rb = player.transform.GetComponent<Rigidbody2D>();
             rb.velocity = new Vector2(rb.velocity.x, silaOdraz);
             Instantiate(dead, transform.position, Quaternion.identity);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
 
     }

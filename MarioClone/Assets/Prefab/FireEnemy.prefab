@@ -253,7 +253,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.031552315, y: -0.05915165}
+  m_Offset: {x: 0.031552315, y: -0.12265301}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -264,7 +264,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4241581, y: 0.86587715}
+  m_Size: {x: 0.4241581, y: 0.73887444}
   m_EdgeRadius: 0
 --- !u!95 &8442409725336828512
 Animator:
@@ -302,7 +302,6 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 1024
-  player: {fileID: 0}
   silaOdraz: 6
   dead: {fileID: 232762512094273454, guid: d3c1a2a208df678438c2ce1d9fa5899f, type: 3}
 --- !u!114 &8442409725336828513
@@ -330,7 +329,6 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 1024
-  player: {fileID: 0}
   range: 3
   bulletPref: {fileID: 1257599781816907410, guid: 81dae7c116c8c6a40909ac1f891967f7, type: 3}
   timeBTWshots: 0.5

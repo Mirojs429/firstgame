@@ -7,11 +7,13 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenu;
     public GameObject deathMenu;
-    public static bool pause = false;
+    public static bool pause;
 
     private void Start()
     {
-
+        pause = false;
+        deathMenu.SetActive(false);
+        pauseMenu.SetActive(false);
     }
 
     public void Pause()
@@ -30,22 +32,15 @@ public class PauseMenu : MonoBehaviour
 
     public void Restart()
     {
-        Time.timeScale = 1f;
         pause = false;
+        Time.timeScale = 1f;
         PlayerScore.ResetScore();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);        
     }
 
     public void MainMenu()
     {
         Time.timeScale = 1f;
-    }
-
-    public void DeathMenu()
-    {
-        Debug.Log("Mrtev");
-        deathMenu.SetActive(true);
-        Time.timeScale = 0f;
     }
 
     private void Update()
