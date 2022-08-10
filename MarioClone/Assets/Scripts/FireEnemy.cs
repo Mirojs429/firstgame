@@ -27,6 +27,8 @@ public class FireEnemy : MonoBehaviour
     public float bulletForce;
     public Animator anim;
 
+    public static bool kill;
+
     void Start()
     {
         mustPatrol = true;
@@ -50,8 +52,7 @@ public class FireEnemy : MonoBehaviour
 
         if (hitA || hitB)
         {
-            PlayerScore.ResetScore();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            kill = true;
         }
 
         distace = Vector2.Distance(transform.position, player.position);

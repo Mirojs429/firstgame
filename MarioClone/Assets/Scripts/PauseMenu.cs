@@ -6,7 +6,13 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenu;
+    public GameObject deathMenu;
     public static bool pause = false;
+
+    private void Start()
+    {
+
+    }
 
     public void Pause()
     {
@@ -33,6 +39,13 @@ public class PauseMenu : MonoBehaviour
     public void MainMenu()
     {
         Time.timeScale = 1f;
+    }
+
+    public void DeathMenu()
+    {
+        Debug.Log("Mrtev");
+        deathMenu.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     private void Update()

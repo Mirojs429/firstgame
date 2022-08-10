@@ -12,6 +12,8 @@ public class Enemy : MonoBehaviour
     private bool mustFlip;
     public LayerMask whatIsGround, whatIsPlayer;
 
+    public static bool kill = false;
+
     private bool hitA, hitB;
 
     void Start()
@@ -32,7 +34,7 @@ public class Enemy : MonoBehaviour
 
         if (hitA || hitB)
         {
-            PlayerHealth.Death();
+            kill = true;
         }
 
     }
