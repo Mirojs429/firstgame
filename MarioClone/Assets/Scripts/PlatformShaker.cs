@@ -7,8 +7,11 @@ public class PlatformShaker : MonoBehaviour
     public float wait;
     private float oldTime;
     private bool con = false;
+    private bool res = false;
     public Animator anim;
     public BoxCollider2D col;
+    public SpriteRenderer ren;
+    public float respawnTime;
 
     void Start()
     {
@@ -22,6 +25,20 @@ public class PlatformShaker : MonoBehaviour
             if (oldTime + wait <= Time.time)
             {
                 anim.Play("Shake");
+                con = false;
+                res = true;
+                oldTime = Time.time;
+            }
+        }
+
+        if (res)
+        {
+            if (oldTime + respawnTime <= Time.time)
+            {
+                ren.enabled = true;
+                col.enabled = true;
+                res = false;
+                anim.Play("Respawn");
             }
         }
         
@@ -29,7 +46,7 @@ public class PlatformShaker : MonoBehaviour
 
     public void ShakeDelete()
     {
-        gameObject.SetActive(false);
+        ren.enabled = false;
     }
 
     public void ColliderDelite()
