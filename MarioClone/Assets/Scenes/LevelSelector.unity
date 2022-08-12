@@ -220,6 +220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinsInLevel: 
+  levelLock: 
   levels:
   - {fileID: 11400000, guid: fbc43354a6ae5004296a835336254247, type: 2}
   - {fileID: 11400000, guid: 83b35cfd32b78304684e1be444d11e6f, type: 2}
@@ -564,7 +565,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 922454647719515452}
+  - {fileID: 3694181954834859145}
   m_Father: {fileID: 1353682949}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -729,12 +730,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1891469879}
   m_CullTransparentMesh: 1
---- !u!224 &922454647719515452 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 9146825987052210133, guid: 0b27e0736800b77448ce781e9b8520c7, type: 3}
-  m_PrefabInstance: {fileID: 8669805280131754004}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &8669805280131754004
+--- !u!1001 &2648479210286062703
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -831,3 +827,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b27e0736800b77448ce781e9b8520c7, type: 3}
+--- !u!224 &3694181954834859145 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 9146825987052210133, guid: 0b27e0736800b77448ce781e9b8520c7, type: 3}
+  m_PrefabInstance: {fileID: 2648479210286062703}
+  m_PrefabAsset: {fileID: 0}
