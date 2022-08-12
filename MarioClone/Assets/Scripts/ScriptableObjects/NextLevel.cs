@@ -9,19 +9,25 @@ public class NextLevel : MonoBehaviour
     [SerializeField] private ScriptableObject nextLevel;
     private int colis = 0;
 
-    public void ChangeColectredCoins(Level _level)
+    public void LoadLevel()
     {
-        if (_level.colectedCoins < PlayerScore.coins)
+        if (SaveManager.instance.coinsInLevel[SceneManager.GetActiveScene().buildIndex] < PlayerScore.coins)
         {
-            _level.colectedCoins = PlayerScore.coins;
-        }        
-    }
-
-    public void LoadLevel(Level _nextLevel)
-    {
+            SaveManager.instance.coinsInLevel[SceneManager.GetActiveScene().buildIndex] = PlayerScore.coins;
+        }
+        
         PlayerScore.ResetScore();
-        _nextLevel.levelLock = false;
-        SceneManager.LoadScene(_nextLevel.sceneToLoad.name);
+        int levelID = SceneManager.GetActiveScene().buildIndex + 1;
+        
+        if (SceneUtility.GetScenePathByBuildIndex(levelID) != "")
+        {            
+            SaveManager.instance.levelLock[levelID] = 1;
+            SaveManager.instance.Save();            
+            SceneManager.LoadScene(levelID);
+        } else {
+            SceneManager.LoadScene(0);
+            SaveManager.instance.Save();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -31,8 +37,7 @@ public class NextLevel : MonoBehaviour
             colis += 1;
             if (colis == 1)
             {
-                ChangeColectredCoins((Level)level);
-                LoadLevel((Level)nextLevel);
+                LoadLevel();
             }
         }
     }

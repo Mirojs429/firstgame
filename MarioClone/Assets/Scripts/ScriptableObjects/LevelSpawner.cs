@@ -8,7 +8,7 @@ public class LevelSpawner : MonoBehaviour
     [SerializeField] private GameObject brick;
     private LevelDisplay levelDisplay;
 
-    private void Awake()
+    void Start()
     {
         foreach (Transform child in transform)
         {
@@ -21,7 +21,7 @@ public class LevelSpawner : MonoBehaviour
         {
             GameObject b = Instantiate(brick, transform.position, Quaternion.identity);
             levelDisplay = b.GetComponent<LevelDisplay>();
-            b.transform.parent = transform;
+            b.transform.SetParent(transform);
             levelDisplay.DisplayLevel((Level)levels[i]);
             
         }

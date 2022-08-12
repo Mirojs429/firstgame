@@ -8,7 +8,6 @@ public class CameraFollow : MonoBehaviour
     public Vector3 offset;
     public float smoothSpeed = 0.125f;
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         Vector3 desiredPosition = player.position + offset;

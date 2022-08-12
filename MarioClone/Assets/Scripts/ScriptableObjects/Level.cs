@@ -10,7 +10,5 @@ public class Level : ScriptableObject
     public string levelName;
     public Sprite levelIMG;
     public Object sceneToLoad;
-    public int colectedCoins;
     public int maxCoins;
-    public bool levelLock;
 }

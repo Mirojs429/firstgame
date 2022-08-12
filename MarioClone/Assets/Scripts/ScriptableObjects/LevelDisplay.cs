@@ -13,6 +13,7 @@ public class LevelDisplay : MonoBehaviour
     [SerializeField] private Image levelIMG;
     [SerializeField] private Image lockIMG;
     [SerializeField] private Button levelButton;
+    private bool levelLock;
 
 
     public void DisplayLevel(Level _level) 
@@ -20,11 +21,20 @@ public class LevelDisplay : MonoBehaviour
         levelName.text = _level.levelName;
         levelID.text = _level.levelID.ToString();
         levelIMG.sprite = _level.levelIMG;
-        coins.text = _level.colectedCoins + " / " + _level.maxCoins;
-        
-        levelButton.interactable = !_level.levelLock;
-        lockIMG.enabled = _level.levelLock;
-        if (_level.levelLock)
+
+        if (SaveManager.instance.levelLock[_level.levelID] == 1)
+        {
+            levelLock = false;
+        } else
+        {
+            levelLock = true;
+        }
+
+        coins.text = SaveManager.instance.coinsInLevel[_level.levelID].ToString() + " / " + _level.maxCoins.ToString();
+
+        levelButton.interactable = !levelLock;
+        lockIMG.enabled = levelLock;
+        if (levelLock)
         {
             levelIMG.color = Color.gray;
         } else
@@ -39,6 +49,6 @@ public class LevelDisplay : MonoBehaviour
 
     public void ChangeLock(Level _level)
     {
-        _level.levelLock = false;
+        levelLock = false;
     }
 }
