@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class NextLevel : MonoBehaviour
 {
-    [SerializeField] private ScriptableObject level;
-    [SerializeField] private ScriptableObject nextLevel;
     private int colis = 0;
+    public GameObject nextLevelMenu;
+    public int levelID;
+    public TMP_Text coins;
+    public Level level;
 
-    public void LoadLevel()
+    public void SaveLevel()
     {
         if (SaveManager.instance.coinsInLevel[SceneManager.GetActiveScene().buildIndex] < PlayerScore.coins)
         {
@@ -17,15 +20,14 @@ public class NextLevel : MonoBehaviour
         }
         
         PlayerScore.ResetScore();
-        int levelID = SceneManager.GetActiveScene().buildIndex + 1;
-        
+
         if (SceneUtility.GetScenePathByBuildIndex(levelID) != "")
-        {            
+        {
             SaveManager.instance.levelLock[levelID] = 1;
-            SaveManager.instance.Save();            
-            SceneManager.LoadScene(levelID);
-        } else {
-            SceneManager.LoadScene(0);
+            SaveManager.instance.Save();
+        }
+        else
+        {
             SaveManager.instance.Save();
         }
     }
@@ -37,8 +39,37 @@ public class NextLevel : MonoBehaviour
             colis += 1;
             if (colis == 1)
             {
-                LoadLevel();
+                Time.timeScale = 0f;
+                PauseMenu.pause = true;
+                levelID = SceneManager.GetActiveScene().buildIndex + 1;
+                nextLevelMenu.SetActive(true);
+                coins.text = PlayerScore.coins + " / " + level.maxCoins.ToString();
+                SaveLevel();
             }
         }
+    }
+
+    public void NextLevelButton()
+    {
+        Time.timeScale = 1f;
+        PauseMenu.pause = false;
+        if (SceneUtility.GetScenePathByBuildIndex(levelID) != "")
+        {
+            SaveManager.instance.levelLock[levelID] = 1;
+            SaveManager.instance.Save();
+            SceneManager.LoadScene(levelID);
+        }
+        else
+        {
+            SceneManager.LoadScene(0);
+            SaveManager.instance.Save();
+        }
+    }
+
+    public void MainMenu()
+    {
+        Time.timeScale = 1f;
+        PauseMenu.pause = false;
+        SceneManager.LoadScene(0);
     }
 }
