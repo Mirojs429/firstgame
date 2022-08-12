@@ -11,11 +11,15 @@ public class NextLevel : MonoBehaviour
 
     public void ChangeColectredCoins(Level _level)
     {
-        _level.colectedCoins = PlayerScore.coins;
+        if (_level.colectedCoins < PlayerScore.coins)
+        {
+            _level.colectedCoins = PlayerScore.coins;
+        }        
     }
 
     public void LoadLevel(Level _nextLevel)
     {
+        PlayerScore.ResetScore();
         _nextLevel.levelLock = false;
         SceneManager.LoadScene(_nextLevel.sceneToLoad.name);
     }
