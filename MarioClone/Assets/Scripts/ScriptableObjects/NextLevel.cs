@@ -8,7 +8,7 @@ public class NextLevel : MonoBehaviour
 {
     private int colis = 0;
     public GameObject nextLevelMenu;
-    public int levelID;
+    [HideInInspector] public int levelID;
     public TMP_Text coins;
     public Level level;
 
