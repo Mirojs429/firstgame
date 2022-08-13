@@ -70,6 +70,7 @@ public class NextLevel : MonoBehaviour
     {
         Time.timeScale = 1f;
         PauseMenu.pause = false;
+        PlayerScore.coins = 0;
         SceneManager.LoadScene(0);
     }
 }
