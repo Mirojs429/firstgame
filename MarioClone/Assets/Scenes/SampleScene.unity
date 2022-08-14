@@ -7467,7 +7467,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 241948181389981050, guid: 783e57c162cea024ba2ecdf8df0b2e52, type: 3}
       propertyPath: canRespawn
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 241948181389981050, guid: 783e57c162cea024ba2ecdf8df0b2e52, type: 3}
       propertyPath: respawnTime
@@ -7536,7 +7536,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 241948181389981050, guid: 783e57c162cea024ba2ecdf8df0b2e52, type: 3}
       propertyPath: canRespawn
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 241948181389981050, guid: 783e57c162cea024ba2ecdf8df0b2e52, type: 3}
       propertyPath: respawnTime
@@ -9062,7 +9062,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 241948181389981050, guid: 783e57c162cea024ba2ecdf8df0b2e52, type: 3}
       propertyPath: canRespawn
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 241948181389981050, guid: 783e57c162cea024ba2ecdf8df0b2e52, type: 3}
       propertyPath: respawnTime
@@ -9473,7 +9473,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 241948181389981050, guid: 783e57c162cea024ba2ecdf8df0b2e52, type: 3}
       propertyPath: canRespawn
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 241948181389981050, guid: 783e57c162cea024ba2ecdf8df0b2e52, type: 3}
       propertyPath: respawnTime
@@ -10238,7 +10238,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 241948181389981050, guid: 783e57c162cea024ba2ecdf8df0b2e52, type: 3}
       propertyPath: canRespawn
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 241948181389981050, guid: 783e57c162cea024ba2ecdf8df0b2e52, type: 3}
       propertyPath: respawnTime
@@ -11450,7 +11450,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 241948181389981050, guid: 783e57c162cea024ba2ecdf8df0b2e52, type: 3}
       propertyPath: canRespawn
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 241948181389981050, guid: 783e57c162cea024ba2ecdf8df0b2e52, type: 3}
       propertyPath: respawnTime
@@ -11796,7 +11796,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 241948181389981050, guid: 783e57c162cea024ba2ecdf8df0b2e52, type: 3}
       propertyPath: canRespawn
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 241948181389981050, guid: 783e57c162cea024ba2ecdf8df0b2e52, type: 3}
       propertyPath: respawnTime
@@ -12134,7 +12134,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 241948181389981050, guid: 783e57c162cea024ba2ecdf8df0b2e52, type: 3}
       propertyPath: canRespawn
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 241948181389981050, guid: 783e57c162cea024ba2ecdf8df0b2e52, type: 3}
       propertyPath: respawnTime
@@ -14394,7 +14394,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 241948181389981050, guid: 783e57c162cea024ba2ecdf8df0b2e52, type: 3}
       propertyPath: canRespawn
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 241948181389981050, guid: 783e57c162cea024ba2ecdf8df0b2e52, type: 3}
       propertyPath: respawnTime
