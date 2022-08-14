@@ -173,8 +173,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 728004109
-  m_SortingLayer: 1
+  m_SortingLayerID: -951949601
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: -60901617, guid: acc5771a1b64f004a8ef613ec0009250, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -295,9 +295,7 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 1024
-  player: {fileID: 0}
   silaOdraz: 6
-  anim: {fileID: 6464711767320522449}
   dead: {fileID: 8243977159048288784, guid: 6d51bd146a0e8914bbcba8c7cd90cef9, type: 3}
 --- !u!1 &6464711767878531710
 GameObject:

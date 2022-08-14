@@ -9,8 +9,9 @@ public class PlatformShaker : MonoBehaviour
     private bool con = false;
     private bool res = false;
     public Animator anim;
-    public BoxCollider2D col;
+    public BoxCollider2D col,triger;
     public SpriteRenderer ren;
+    public bool canRespawn;
     public float respawnTime;
 
     void Start()
@@ -30,17 +31,21 @@ public class PlatformShaker : MonoBehaviour
                 oldTime = Time.time;
             }
         }
-
-        if (res)
+        if (canRespawn)
         {
-            if (oldTime + respawnTime <= Time.time)
+            if (res)
             {
-                ren.enabled = true;
-                col.enabled = true;
-                res = false;
-                anim.Play("Respawn");
+                if (oldTime + respawnTime <= Time.time)
+                {
+                    ren.enabled = true;
+                    col.enabled = true;
+                    triger.enabled = true;
+                    res = false;
+                    anim.Play("Respawn");
+                }
             }
         }
+        
         
     }
 
@@ -52,11 +57,21 @@ public class PlatformShaker : MonoBehaviour
     public void ColliderDelite()
     {
         col.enabled = false;
+        triger.enabled = false;
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
+    /*private void OnCollisionEnter2D(Collision2D col)
     {
         if(col.gameObject.CompareTag("Player"))
+        {
+            oldTime = Time.time;
+            con = true;
+        }
+    }*/
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.CompareTag("Player"))
         {
             oldTime = Time.time;
             con = true;

@@ -16,7 +16,7 @@ public class Parallax : MonoBehaviour
 
     void FixedUpdate()
     {
-        float dis = (cam.transform.position.x * parallaxEffect);
+        float dis = (cam.transform.position.x * (1 - parallaxEffect));
         float temp = (cam.transform.position.x * parallaxEffect);
 
         transform.position = new Vector3(startPos + dis, transform.position.y, transform.position.z);
