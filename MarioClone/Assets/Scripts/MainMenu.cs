@@ -6,8 +6,8 @@ using System.IO;
 
 public class MainMenu : MonoBehaviour
 {
-    public GameObject mainMenu, levelSelectorMenu, areYouSure;
-    public GameObject newGame, continueB, levelSelector;
+    public GameObject mainMenu, levelSelectorMenu, areYouSure, settings;
+    public GameObject newGame, continueB, levelSelector, settingsBack;
 
     private void Awake()
     {
@@ -19,12 +19,6 @@ public class MainMenu : MonoBehaviour
     }
 
     void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
     {
         
     }
@@ -91,5 +85,17 @@ public class MainMenu : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void Settings()
+    {
+        settings.SetActive(true);
+        mainMenu.SetActive(false);
+    }
+
+    public void SettingsBack()
+    {
+        settings.SetActive(false);
+        mainMenu.SetActive(true);
     }
 }
