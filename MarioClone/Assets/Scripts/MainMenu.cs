@@ -6,8 +6,8 @@ using System.IO;
 
 public class MainMenu : MonoBehaviour
 {
-    public GameObject mainMenu, levelSelectorMenu, areYouSure, settings;
-    public GameObject newGame, continueB, levelSelector, settingsBack;
+    public GameObject mainMenu, levelSelectorMenu, areYouSure, settings, credits;
+    public GameObject newGame, continueB, levelSelector, settingsBack, creditsBack;
 
     private void Awake()
     {
@@ -20,7 +20,7 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
-        
+        credits.SetActive(false);
     }
 
     public void NewGame()
@@ -96,6 +96,18 @@ public class MainMenu : MonoBehaviour
     public void SettingsBack()
     {
         settings.SetActive(false);
+        mainMenu.SetActive(true);
+    }
+
+    public void Credits()
+    {
+        credits.SetActive(true);
+        mainMenu.SetActive(false);
+    }
+
+    public void CloseCredits()
+    {
+        credits.SetActive(false);
         mainMenu.SetActive(true);
     }
 }

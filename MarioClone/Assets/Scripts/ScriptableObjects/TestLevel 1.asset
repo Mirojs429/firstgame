@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: TestLevel 1
   m_EditorClassIdentifier: 
   levelID: 2
-  levelName: Second Level
+  levelName: 1-2
   levelIMG: {fileID: 21300000, guid: a5a91b6d7a114c84c84495c874907b46, type: 3}
   sceneToLoad: {fileID: 102900000, guid: b8ef3227fd0c8d74c87ae91f59072315, type: 3}
-  colectedCoins: 0
-  maxCoins: 2
-  levelLock: 1
+  maxCoins: 5
