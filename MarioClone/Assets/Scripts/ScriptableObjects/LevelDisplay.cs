@@ -8,18 +8,18 @@ using TMPro;
 public class LevelDisplay : MonoBehaviour
 {
     [SerializeField] private TMP_Text levelName;
-    [SerializeField] private TMP_Text levelID;
     [SerializeField] private TMP_Text coins;
     [SerializeField] private Image levelIMG;
+    [SerializeField] private Image lockIMGalpha;
     [SerializeField] private Image lockIMG;
     [SerializeField] private Button levelButton;
     private bool levelLock;
+    private int levelIndex;
 
 
     public void DisplayLevel(Level _level) 
     {
         levelName.text = _level.levelName;
-        levelID.text = _level.levelID.ToString();
         levelIMG.sprite = _level.levelIMG;
 
         if (SaveManager.instance.levelLock[_level.levelID] == 1)
@@ -34,21 +34,27 @@ public class LevelDisplay : MonoBehaviour
 
         levelButton.interactable = !levelLock;
         lockIMG.enabled = levelLock;
+        lockIMGalpha.color = Color.black;
+        var tempColor = lockIMGalpha.color;
         if (levelLock)
         {
-            levelIMG.color = Color.gray;
+            tempColor.a = .25f;
         } else
         {
-            levelIMG.color = Color.white;
+            tempColor.a = 0f;
         }
+        lockIMGalpha.color = tempColor;
 
-
-        levelButton.onClick.RemoveAllListeners();
-        levelButton.onClick.AddListener(() => SceneManager.LoadScene(_level.sceneToLoad.name));
+        levelIndex = _level.levelID;
     }
 
     public void ChangeLock(Level _level)
     {
         levelLock = false;
+    }
+
+    public void PlayLevel()
+    {
+        SceneManager.LoadScene(levelIndex);
     }
 }
