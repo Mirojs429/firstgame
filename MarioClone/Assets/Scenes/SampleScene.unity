@@ -10913,7 +10913,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   distance: 5
-  climbing: 0
+  doubleJump: 1
+  dash: 1
+  dashSpeed: 15
+  dashTime: 0.2
 --- !u!50 &1219618025
 Rigidbody2D:
   serializedVersion: 4

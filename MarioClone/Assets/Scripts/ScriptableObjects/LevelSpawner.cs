@@ -23,10 +23,6 @@ public class LevelSpawner : MonoBehaviour
         {
             GameObject b = Instantiate(brick, transform.position, Quaternion.identity);
             levelDisplay = b.GetComponent<LevelDisplay>();
-            //Button click = b.GetComponent<Button>();
-            //click.onClick.RemoveAllListeners();
-            //click.onClick.AddListener(delegate { SceneManager.LoadScene(levels[i].levelID); });
-            //click.onClick.AddListener(delegate { SceneManager.LoadScene(i); });
             b.name = levels[i].levelName;
             b.transform.SetParent(transform);
             levelDisplay.DisplayLevel(levels[i]);

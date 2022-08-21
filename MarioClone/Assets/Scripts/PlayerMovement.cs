@@ -25,24 +25,34 @@ public class PlayerMovement : MonoBehaviour
     [Header("Žebøík")]
     public LayerMask whatIsLadder;
     public float distance;
-    public bool climbing;
 
+    [Header("Abilitky")]
+    public bool doubleJump;
+
+    public bool dash;
+    public float dashSpeed;
+    public float dashTime;
+
+    private bool climbing;
     private float moveInput;
     private bool grounded;
     private bool stickyContact;
     private bool wallColision;
     private float moveInputVer;
     private bool jumping;
+    private int jumpNumber;
+    private bool isDashing;
+    private float startDashing;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        startDashing = dashTime;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (PauseMenu.pause == false)
+        if (!PauseMenu.pause)
         {
             wallColision = Physics2D.OverlapCircle(wallCheck.position, groundedRadius, whatIsWall);
             if (wallColision && moveInput != 0)
@@ -55,7 +65,27 @@ public class PlayerMovement : MonoBehaviour
 
             moveInput = Input.GetAxisRaw("Horizontal");
 
-            rb.velocity = new Vector2(moveInput * Speed, rb.velocity.y);
+            if (Input.GetKeyDown(KeyCode.LeftShift) && dash)
+            {
+                isDashing = true;
+            }
+
+            if (isDashing)
+            {
+                startDashing -= Time.deltaTime;
+                rb.gravityScale = 0;
+                rb.velocity = new Vector2(moveInput * dashSpeed, rb.velocity.y);
+            } else
+            {
+                rb.velocity = new Vector2(moveInput * Speed, rb.velocity.y);
+            }
+
+            if (startDashing <= 0)
+            {
+                startDashing = dashTime;
+                isDashing = false;
+                rb.gravityScale = 3;
+            }
 
             if (moveInput < 0)
             {
@@ -75,11 +105,21 @@ public class PlayerMovement : MonoBehaviour
                 jumping = false;
             }
 
-            if (Input.GetButtonDown("Jump") && Grounded())
+            if (Grounded())
+            {
+                jumpNumber = 1;
+            }
+
+            if (Input.GetButtonDown("Jump") && jumpNumber > 0 && doubleJump)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                jumpNumber--;
+            }
+            else if (Input.GetButtonDown("Jump") && Grounded())
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             }
-
+                        
             if (Input.GetButtonDown("Jump") && stickyContact)
             {
                 rb.velocity = new Vector2(jumpForce * -moveInput, jumpForce);
