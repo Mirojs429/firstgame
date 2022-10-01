@@ -42,6 +42,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: CamBG
+    uniqueID: 1142015871
+    locked: 0
   - name: BG
     uniqueID: 2865622649
     locked: 0
