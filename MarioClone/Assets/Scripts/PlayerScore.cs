@@ -10,12 +10,12 @@ public class PlayerScore : MonoBehaviour
     public TMP_Text coinsScore;
     void Start()
     {        
-        coinsScore.text = "Coins: " + coins.ToString();
+        coinsScore.text = coins.ToString();
     }
 
     void Update()
     {
-        coinsScore.text = "Coins: " + coins.ToString();        
+        coinsScore.text = coins.ToString();        
     }
 
     public static void ResetScore()
