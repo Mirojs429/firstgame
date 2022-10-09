@@ -26,14 +26,16 @@ public class EnemyHealth : MonoBehaviour
 
     void Update()
     {
-        if(Physics2D.OverlapCircle(deadCheck.position, 0.2f, whatIsPlayer))
+        if (PlayerMovement.isDashing == false)
         {
-            rb = player.transform.GetComponent<Rigidbody2D>();
-            rb.velocity = new Vector2(rb.velocity.x, silaOdraz);
-            Instantiate(dead, transform.position, Quaternion.identity);
-            gameObject.SetActive(false);
-        }
-
+            if (Physics2D.OverlapCircle(deadCheck.position, 0.1f, whatIsPlayer))
+            {
+                rb = player.transform.GetComponent<Rigidbody2D>();
+                rb.velocity = new Vector2(rb.velocity.x, silaOdraz);
+                Instantiate(dead, transform.position, Quaternion.identity);
+                gameObject.SetActive(false);
+            }
+        }        
     }
 
 }

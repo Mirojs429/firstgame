@@ -35,7 +35,10 @@ public class Enemy : MonoBehaviour
 
         if (hitA || hitB)
         {
-            kill = true;
+            if (PlayerMovement.isDashing == false)
+            {
+                kill = true;
+            }
         }
 
     }

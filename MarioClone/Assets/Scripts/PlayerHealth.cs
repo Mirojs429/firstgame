@@ -45,12 +45,15 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.CompareTag("Trap"))
+        if (PlayerMovement.isDashing == false)
         {
-            PauseMenu.pause = true;
-            rb.gravityScale = 0f;
-            rb.velocity = Vector2.zero;
-            anim.Play("Player_death");
+            if (col.gameObject.CompareTag("Trap"))
+            {
+                PauseMenu.pause = true;
+                rb.gravityScale = 0f;
+                rb.velocity = Vector2.zero;
+                anim.Play("Player_death");
+            }
         }
     }
 
