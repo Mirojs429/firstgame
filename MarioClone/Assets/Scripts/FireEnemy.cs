@@ -46,6 +46,7 @@ public class FireEnemy : MonoBehaviour
     {
         if (mustPatrol)
         {
+            mustFlip = !Physics2D.OverlapCircle(groundCheck.position, 0.1f, whatIsGround);
             Patrol();
         }
 
@@ -72,7 +73,6 @@ public class FireEnemy : MonoBehaviour
     {
         if (mustPatrol)
         {
-            mustFlip = !Physics2D.OverlapCircle(groundCheck.position, 0.1f, whatIsGround);
             anim.SetBool("Shoot", false);
         }
 

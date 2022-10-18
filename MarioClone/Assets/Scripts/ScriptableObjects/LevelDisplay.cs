@@ -9,6 +9,7 @@ public class LevelDisplay : MonoBehaviour
 {
     [SerializeField] private TMP_Text levelName;
     [SerializeField] private TMP_Text coins;
+    [SerializeField] private Image coinsIMG;
     [SerializeField] private Image levelIMG;
     [SerializeField] private Image lockIMGalpha;
     [SerializeField] private Image lockIMG;
@@ -39,9 +40,13 @@ public class LevelDisplay : MonoBehaviour
         if (levelLock)
         {
             tempColor.a = .25f;
+            coins.enabled = false;
+            coinsIMG.enabled = false;
         } else
         {
             tempColor.a = 0f;
+            coins.enabled = true;
+            coinsIMG.enabled = true;
         }
         lockIMGalpha.color = tempColor;
 

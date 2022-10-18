@@ -775,6 +775,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: {fileID: 9146825987200251203}
   coins: {fileID: 4345875820780263736}
+  coinsIMG: {fileID: 7929949842517938554}
   levelIMG: {fileID: 9146825986483077850}
   lockIMGalpha: {fileID: 8738889471607483510}
   lockIMG: {fileID: 6662571754031981120}

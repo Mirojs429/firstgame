@@ -30,6 +30,7 @@ public class EnemyHealth : MonoBehaviour
         {
             if (Physics2D.OverlapCircle(deadCheck.position, 0.1f, whatIsPlayer))
             {
+                PlayerScore.enemies += 1;
                 rb = player.transform.GetComponent<Rigidbody2D>();
                 rb.velocity = new Vector2(rb.velocity.x, silaOdraz);
                 Instantiate(dead, transform.position, Quaternion.identity);

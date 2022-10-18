@@ -27,6 +27,7 @@ public class Enemy : MonoBehaviour
     {
         if (mustPatrol)
         {
+            mustFlip = !Physics2D.OverlapCircle(groundCheck.position, 0.1f, whatIsGround);
             Patrol();
         }
 
@@ -43,13 +44,13 @@ public class Enemy : MonoBehaviour
 
     }
 
-    void FixedUpdate()
+  /*  void FixedUpdate()
     {
         if (mustPatrol)
         {
             mustFlip = !Physics2D.OverlapCircle(groundCheck.position, 0.1f, whatIsGround);
         }
-    }
+    }*/
 
     void Patrol()
     {

@@ -10,7 +10,14 @@ public class NextLevel : MonoBehaviour
     public GameObject nextLevelMenu;
     [HideInInspector] public int levelID;
     public TMP_Text coins;
+    public TMP_Text enemies;
     public Level level;
+    private int numOfEnemies;
+
+    public void Start()
+    {
+        numOfEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
+    }
 
     public void SaveLevel()
     {
@@ -44,6 +51,7 @@ public class NextLevel : MonoBehaviour
                 levelID = SceneManager.GetActiveScene().buildIndex + 1;
                 nextLevelMenu.SetActive(true);
                 coins.text = PlayerScore.coins + " / " + level.maxCoins.ToString();
+                enemies.text = PlayerScore.enemies.ToString() + " / " + numOfEnemies;
                 SaveLevel();
             }
         }
@@ -71,6 +79,7 @@ public class NextLevel : MonoBehaviour
         Time.timeScale = 1f;
         PauseMenu.pause = false;
         PlayerScore.coins = 0;
+        PlayerScore.enemies = 0;
         SceneManager.LoadScene(0);
     }
 }

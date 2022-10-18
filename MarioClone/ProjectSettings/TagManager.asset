@@ -8,6 +8,8 @@ TagManager:
   - Trap
   - Terrain
   - BulletStop
+  - Enemy
+  - Coin
   layers:
   - Default
   - TransparentFX
