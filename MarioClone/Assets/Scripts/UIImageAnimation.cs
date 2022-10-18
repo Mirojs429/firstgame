@@ -12,7 +12,7 @@ public class UIImageAnimation : MonoBehaviour
     private float wait;
     private float delayWait = 0;
     private int m_IndexSprite = 1;
-    private bool isDone;
+    public bool playOnPause = false;
 
     public void Start()
     {
@@ -26,15 +26,39 @@ public class UIImageAnimation : MonoBehaviour
             delayWait -= Time.unscaledDeltaTime;
             if (delayWait <= 0)
             {
+                if (playOnPause)
+                {
+                    PlayAnimOnPause();
+                }
                 PlayAnim();
             }
         } else
         {
+            if (playOnPause)
+            {
+                PlayAnimOnPause();
+            }
             PlayAnim();
         }                    
     }
 
     public void PlayAnim()
+    {
+        wait -= Time.deltaTime;
+        if (wait <= 0)
+        {
+            if (m_IndexSprite >= m_SpriteArray.Length)
+            {
+                m_IndexSprite = 0;
+                delayWait = delay;
+            }
+            m_Image.sprite = m_SpriteArray[m_IndexSprite];
+            m_IndexSprite += 1;
+            wait = m_Speed;
+        }
+    }
+
+    public void PlayAnimOnPause()
     {
         wait -= Time.unscaledDeltaTime;
         if (wait <= 0)
