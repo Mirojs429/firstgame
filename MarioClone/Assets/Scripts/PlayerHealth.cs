@@ -24,7 +24,7 @@ public class PlayerHealth : MonoBehaviour
             anim.Play("Player_death");
         }
 
-        if(Enemy.kill == true || FireEnemy.kill == true)
+        if(Enemy.kill == true || FireEnemy.kill == true || Bat_Neutral.kill == true)
         {
             PauseMenu.pause = true;
             rb.gravityScale = 0f;
