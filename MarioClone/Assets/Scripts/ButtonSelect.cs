@@ -7,6 +7,6 @@ public class ButtonSelect : MonoBehaviour
 {
     void Start()
     {
-        gameObject.GetComponent<Selectable>().Select();
+        gameObject.GetComponent<Selectable>().Select();        
     }
 }

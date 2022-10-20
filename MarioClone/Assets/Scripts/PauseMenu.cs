@@ -49,10 +49,10 @@ public class PauseMenu : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !pause)
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7) && !pause)
         {
             Pause();
-        }else if (Input.GetKeyDown(KeyCode.Escape) && pause)
+        }else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7) && pause)
         {
             Resume();
         }

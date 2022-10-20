@@ -112,4 +112,19 @@ public class MainMenu : MonoBehaviour
         credits.SetActive(false);
         mainMenu.SetActive(true);
     }
+
+    void Update()
+    {
+        if (levelSelectorMenu.activeSelf == true && Input.GetKeyDown(KeyCode.JoystickButton1))
+        {
+            SelectorBack();
+        } else if (settings.activeSelf == true && Input.GetKeyDown(KeyCode.JoystickButton1))
+        {
+            SettingsBack();
+        }
+        else if (credits.activeSelf == true && Input.GetKeyDown(KeyCode.JoystickButton1))
+        {
+            CloseCredits();
+        }
+    }
 }

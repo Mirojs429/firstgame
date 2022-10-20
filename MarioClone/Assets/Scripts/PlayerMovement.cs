@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -54,6 +55,10 @@ public class PlayerMovement : MonoBehaviour
     public static bool isDashing;
     private float startDashing;
 
+    [Header("Player info")]
+    public TMP_Text playerInfo;
+    private int numOfDJ = 0;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -65,6 +70,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        playerInfo.text =
+            "--- Player info ---" + "\n\n" +
+            "Dashing: " + isDashing + "\n" +
+            "Gravity: " + rb.gravityScale + "\n" +
+            "Doublejumps: " + numOfDJ;
+
         if (!PauseMenu.pause)
         {
             wallColision = Physics2D.OverlapCircle(wallCheck.position, groundedRadius, whatIsWall);
@@ -78,7 +89,8 @@ public class PlayerMovement : MonoBehaviour
 
             moveInput = Input.GetAxisRaw("Horizontal");
 
-            if (Input.GetKeyDown(KeyCode.LeftShift) && moveInput != 0 && dash && !dashCooldownCountB)
+            if (Input.GetKeyDown(KeyCode.LeftShift) && moveInput != 0 && dash && !dashCooldownCountB
+                || Input.GetKeyDown(KeyCode.JoystickButton2) && moveInput != 0 && dash && !dashCooldownCountB)
             {
                 isDashing = true;
                 dashCooldownCountB = true;
@@ -108,6 +120,7 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = new Vector2(moveInput * Speed, rb.velocity.y);
                 Physics2D.IgnoreLayerCollision(10, 11, false);
                 Physics2D.IgnoreLayerCollision(10, 9, false);
+                //rb.gravityScale = 3;
             }
 
             if (startDashing <= 0)
@@ -147,12 +160,14 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-            if (Input.GetButtonDown("Jump") && jumpNumber > 0 && doubleJump && !doubleJumpCooldownB && !Grounded())
+            if (Input.GetButtonDown("Jump") && jumpNumber > 0 && doubleJump && !doubleJumpCooldownB && !Grounded() && !stickyContact)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                 doubleJumpCooldownB = true;
                 DJMask.fillAmount = 1;
                 jumpNumber--;
+                //DOublejump counter
+                numOfDJ++;
             }
             else if (Input.GetButtonDown("Jump") && Grounded())
             {
@@ -189,7 +204,6 @@ public class PlayerMovement : MonoBehaviour
                 if (moveInputVer != 0)
                 {
                     climbing = true;
-                
                 }
             } else
             {
@@ -201,7 +215,7 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, moveInputVer * Speed);
                 rb.gravityScale = 0;
                 animator.SetBool("IsFadder", true);
-            } else
+            } else if (Grounded())
             {
                 rb.gravityScale = 3;
                 animator.SetBool("IsFadder", false);
