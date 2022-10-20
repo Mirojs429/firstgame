@@ -15,6 +15,8 @@ public class Projectile : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player")
             || col.gameObject.CompareTag("Terrain")
+            || col.gameObject.CompareTag("Enemy")
+            || col.gameObject.CompareTag("Trap")
             || col.gameObject.CompareTag("StickyTerrain")
             || col.gameObject.CompareTag("BulletStop"))
         {

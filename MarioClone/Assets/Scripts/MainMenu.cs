@@ -21,6 +21,8 @@ public class MainMenu : MonoBehaviour
     void Start()
     {
         credits.SetActive(false);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void NewGame()
