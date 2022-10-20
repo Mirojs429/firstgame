@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a3cdb614afc631e48ab03322cf4b4adf
+guid: 8fb2992e17778d34cb9b8566ed0157a9
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -104,13 +104,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Tentacle_0
+      name: Tentacle_Eye_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 16
-        height: 32
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,20 +118,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 66d75a5c2ceb15e4e830d8f16d94fd23
-      internalID: 456561692
+      spriteID: 1b395fafd1528ba45aa80729cc381c5e
+      internalID: -1578336563
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tentacle_1
+      name: Tentacle_Eye_1
       rect:
         serializedVersion: 2
         x: 16
         y: 0
         width: 16
-        height: 32
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -139,20 +139,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1c84f26af3a671846a875d58eacf3817
-      internalID: -1803694894
+      spriteID: 68d8e68ee1af0a943ae823a6426856fd
+      internalID: 699793203
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tentacle_2
+      name: Tentacle_Eye_2
       rect:
         serializedVersion: 2
         x: 32
         y: 0
         width: 16
-        height: 32
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,20 +160,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f1361fff30fb3b44bbb68ee5ded438ce
-      internalID: -1871881982
+      spriteID: db20e889a8753184c943f79f908b481e
+      internalID: 1633419494
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tentacle_3
+      name: Tentacle_Eye_3
       rect:
         serializedVersion: 2
         x: 48
         y: 0
         width: 16
-        height: 32
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,20 +181,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b2405b072e665eb4b8c53a62e8323d0f
-      internalID: 727195380
+      spriteID: 53d1fd5d706aff347bdd208262be5b9e
+      internalID: 1322545619
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tentacle_4
+      name: Tentacle_Eye_4
       rect:
         serializedVersion: 2
         x: 64
         y: 0
         width: 16
-        height: 32
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -202,29 +202,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4e9ee37ac984f354384f89ec8891ee30
-      internalID: -1862229017
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tentacle_5
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 0
-        width: 16
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8159b29f7eb879f4f91a0b28e4078599
-      internalID: -508109678
+      spriteID: 53b7a48862c7b964289b5c9ec460975f
+      internalID: 2087999193
       vertices: []
       indices: 
       edges: []
@@ -240,12 +219,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Tentacle_2: -1871881982
-      Tentacle_0: 456561692
-      Tentacle_3: 727195380
-      Tentacle_1: -1803694894
-      Tentacle_4: -1862229017
-      Tentacle_5: -508109678
+      Tentacle_Eye_4: 2087999193
+      Tentacle_Eye_3: 1322545619
+      Tentacle_Eye_1: 699793203
+      Tentacle_Eye_2: 1633419494
+      Tentacle_Eye_0: -1578336563
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

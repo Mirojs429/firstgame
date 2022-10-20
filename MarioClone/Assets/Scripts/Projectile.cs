@@ -4,24 +4,21 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject destroy;
 
-    // Update is called once per frame
     void Update()
     {
-        Destroy(gameObject, 10f);
+        Destroy(gameObject, 6f);
     }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.CompareTag("Player")
             || col.gameObject.CompareTag("Terrain")
+            || col.gameObject.CompareTag("StickyTerrain")
             || col.gameObject.CompareTag("BulletStop"))
         {
+            Instantiate(destroy, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
