@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Groun & wall check")]
     public Transform groundCheck;
     public Transform wallCheck;
+    public Transform wallCheckLeft;
     public float groundedRadius = .5f;
     public LayerMask whatIsGround;
     public LayerMask whatIsWall;
@@ -144,7 +145,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 startDashing = dashTime;
                 isDashing = false;
-                
             }
 
             //Otoèení postavy podle smìru pohybu
