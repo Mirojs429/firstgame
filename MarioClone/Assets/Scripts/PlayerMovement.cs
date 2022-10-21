@@ -57,7 +57,19 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Player info")]
     public TMP_Text playerInfo;
-    private int numOfDJ = 0;
+
+    // -- Animation cotroller --
+    private bool an_Idle; //graunded & moveinput = 0
+    private bool an_Moving; //graunded & moveinput <> 0
+    private bool an_Jump; //!grounded & velocityY > 0
+    private bool an_DoubleJump; //!grounded & velocityY > 0 & pressed DoubleJump
+    private bool an_Falling; //!grounded & velocityY < 0
+    private bool an_Dash; //dashing
+    private bool an_Ladder; //vertical input > 0 & climbing
+    private int climbingSpeed;
+    private bool an_WallGrab; //stickyContact & moveinput > 0
+
+    // -- Sound Controller --
 
     void Start()
     {
@@ -70,14 +82,17 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        playerInfo.text =
-            "--- Player info ---" + "\n\n" +
-            "Dashing: " + isDashing + "\n" +
-            "Gravity: " + rb.gravityScale + "\n" +
-            "Doublejumps: " + numOfDJ;
+        
 
         if (!PauseMenu.pause)
         {
+            AnimationControll();
+
+            // -- Uložení hoizontálního a vertikálního inputu --
+            moveInput = Input.GetAxisRaw("Horizontal");
+            moveInputVer = Input.GetAxisRaw("Vertical");
+
+            //sticky contack check
             wallColision = Physics2D.OverlapCircle(wallCheck.position, groundedRadius, whatIsWall);
             if (wallColision && moveInput != 0)
             {
@@ -87,8 +102,8 @@ public class PlayerMovement : MonoBehaviour
                 Invoke("SetTouchingFalse", timeToJump);
             }
 
-            moveInput = Input.GetAxisRaw("Horizontal");
-
+            
+            // -- Dash --
             if (Input.GetKeyDown(KeyCode.LeftShift) && moveInput != 0 && dash && !dashCooldownCountB
                 || Input.GetKeyDown(KeyCode.JoystickButton2) && moveInput != 0 && dash && !dashCooldownCountB)
             {
@@ -96,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
                 dashCooldownCountB = true;
                 dashMask.fillAmount = 1;
             }
-
+            // Dash cooldown
             if (dashCooldownCountB)
             {
                 dashCooldownCount -= 1 * Time.deltaTime;
@@ -108,46 +123,53 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
+            // Dash pohyb
             if (isDashing)
             {
                 startDashing -= Time.deltaTime;
                 rb.gravityScale = 0;
                 Physics2D.IgnoreLayerCollision(10, 11, true);
                 Physics2D.IgnoreLayerCollision(10, 9, true);
-                rb.velocity = new Vector2(moveInput * dashSpeed, rb.velocity.y);
+                rb.velocity = new Vector2(moveInput * dashSpeed, 0f);
             } else
             {
                 rb.velocity = new Vector2(moveInput * Speed, rb.velocity.y);
                 Physics2D.IgnoreLayerCollision(10, 11, false);
                 Physics2D.IgnoreLayerCollision(10, 9, false);
-                //rb.gravityScale = 3;
+                rb.gravityScale = 3;
             }
 
+            //Dash ukonèení
             if (startDashing <= 0)
             {
                 startDashing = dashTime;
                 isDashing = false;
-                rb.gravityScale = 3;
+                
             }
 
+            //Otoèení postavy podle smìru pohybu
             if (moveInput < 0)
             {
+                //gameObject.GetComponent<SpriteRenderer>().flipX = true;
                 transform.eulerAngles = new Vector3(0, -180, 0);
             } else if (moveInput > 0)
             {
+                //gameObject.GetComponent<SpriteRenderer>().flipX = false;
                 transform.eulerAngles = new Vector3(0, 0, 0);
             }
 
+            //Detekce skoku
             if(!Grounded() && !climbing && !stickyContact)
             {
                 jumping = true;
-                animator.SetBool("IsJumping", true);
+                //animator.SetBool("IsJumping", true);
             } else
             {
-                animator.SetBool("IsJumping", false);
+                //animator.SetBool("IsJumping", false);
                 jumping = false;
             }
 
+            //Doublejump odpoèet
             if (doubleJumpCooldownB)
             {
                 DJCooldownCount -= 1 * Time.deltaTime;
@@ -160,25 +182,26 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-            if (Input.GetButtonDown("Jump") && jumpNumber > 0 && doubleJump && !doubleJumpCooldownB && !Grounded() && !stickyContact)
+            //Doublejump  a jump
+            if (Input.GetButtonDown("Jump") && jumpNumber > 0 && doubleJump && !doubleJumpCooldownB && !Grounded() && !stickyContact && !isDashing)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                 doubleJumpCooldownB = true;
                 DJMask.fillAmount = 1;
                 jumpNumber--;
-                //DOublejump counter
-                numOfDJ++;
             }
-            else if (Input.GetButtonDown("Jump") && Grounded())
+            else if (Input.GetButtonDown("Jump") && Grounded() && !isDashing)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             }
 
+            //Jump na sticky zemi
             if (Input.GetButtonDown("Jump") && stickyContact)
             {
                 rb.velocity = new Vector2(jumpForce * -moveInput, jumpForce);
             }
 
+            //Animace pohybu postavy
             if (moveInput != 0 && !stickyContact && !climbing && !jumping)
             {
                 animator.SetBool("IsMoving", true);
@@ -188,6 +211,7 @@ public class PlayerMovement : MonoBehaviour
                 animator.SetBool("IsMoving", false);
             }
 
+            //Slide postavy po sticky zemi
             if (stickyContact && !Grounded() && moveInput != 0)
             {
                 rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlideSpeed, float.MaxValue));
@@ -197,8 +221,8 @@ public class PlayerMovement : MonoBehaviour
                 animator.SetBool("IsGrabing", false);
             }
 
+            //Detekce žebøíku
             RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, whatIsLadder);
-            moveInputVer = Input.GetAxisRaw("Vertical");
             if (hitInfo.collider != null)
             {
                 if (moveInputVer != 0)
@@ -210,17 +234,119 @@ public class PlayerMovement : MonoBehaviour
                 climbing = false;
             }
 
+            //Pohyb po žebøíku
             if (climbing)
             {
                 rb.velocity = new Vector2(rb.velocity.x, moveInputVer * Speed);
                 rb.gravityScale = 0;
                 animator.SetBool("IsFadder", true);
-            } else if (Grounded())
+            } else if (Grounded() || !climbing)
             {
                 rb.gravityScale = 3;
                 animator.SetBool("IsFadder", false);
             }
         }
+    }
+
+    void AnimationControll()
+    {
+        if(Grounded() && moveInput == 0 && !stickyContact && !climbing)
+        {
+            an_Idle = true;
+            animator.Play("Player_idle");
+        } else
+        {
+            an_Idle = false;
+        }
+
+        if (Grounded() && moveInput != 0 && !isDashing)
+        {
+            an_Moving = true;
+            animator.Play("Player_walk");
+        } else
+        {
+            an_Moving = false;
+        }
+
+        if (!Grounded() && rb.velocity.y > 1f && !stickyContact && !climbing && !isDashing)
+        {
+            an_Jump = true;
+            animator.Play("Player_jump");
+        } else
+        {
+            an_Jump = false;
+        }
+
+        if (Input.GetButtonDown("Jump") && jumpNumber > 0 && doubleJump && !doubleJumpCooldownB && !Grounded() && !stickyContact && !isDashing)
+        {
+            an_DoubleJump = true;
+            animator.Play("Player_jump");
+        } else
+        {
+            an_DoubleJump = false;
+        }
+
+        if (!Grounded() && rb.velocity.y < -1f && !stickyContact && !climbing && !isDashing)
+        {
+            an_Falling = true;
+            animator.Play("Player_fall");
+        }
+        else
+        {
+            an_Falling = false;
+        }
+
+        if (isDashing)
+        {
+            an_Dash = true;
+            animator.Play("Player_dash");
+        }
+        else
+        {
+            an_Dash = false;
+        }
+
+        if (climbing)
+        {
+            an_Ladder = true;
+            animator.Play("Player_ladder");
+        } else
+        {
+            an_Ladder = false;
+            climbingSpeed = 0;
+            animator.speed = 1;
+        }
+
+        if (climbing && moveInputVer != 0)
+        {
+            climbingSpeed = 1;
+            animator.speed = 1;
+        } else if (climbing && moveInputVer == 0)
+        {
+            climbingSpeed = 0;
+            animator.speed = 0;
+        }
+
+        if (stickyContact)
+        {
+            an_WallGrab = true;
+            animator.Play("Player_wallGrab");
+        } else
+        {
+            an_WallGrab = false;
+        }
+
+        playerInfo.text =
+            "--- Player info ---" + "\n\n" +
+            "Idle: " + an_Idle + "\n" +
+            "Moving: " + an_Moving + "\n" +
+            "Jump: " + an_Jump + "\n" +
+            "DoubleJump: " + an_DoubleJump + "\n" +
+            "Falling: " + an_Falling + "\n" +
+            "Dash: " + an_Dash + "\n" +
+            "Ladder: " + an_Ladder + "\n" +
+            "Ladder speed: " + climbingSpeed + "\n" +
+            "Sticky: " + an_WallGrab + "\n";
     }
 
     void SetTouchingFalse()
