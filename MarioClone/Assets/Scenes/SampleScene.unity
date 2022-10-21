@@ -16486,8 +16486,8 @@ MonoBehaviour:
   doubleJumpCooldown: 2
   dashMask: {fileID: 1007887355}
   dash: 1
-  dashSpeed: 20
-  dashTime: 0.2
+  dashSpeed: 15
+  dashTime: 0.3
   dashCooldown: 1
   playerInfo: {fileID: 1620285850}
 --- !u!50 &1219618025
