@@ -11,12 +11,15 @@ public class PlayerMovement : MonoBehaviour
     [Header("Nastavení rychlostí a síly")]
     public float jumpForce = 3f;
     public float Speed = 5f;
+
+    [Header("Sicky kontakt")]
+    public float stickyContactRadius;
     public float wallSlideSpeed;
     public float timeToJump;
 
     [Header("Groun & wall check")]
     public Transform groundCheck;
-    public Transform wallCheck;
+    public Transform wallCheckRight;
     public Transform wallCheckLeft;
     public float groundedRadius = .5f;
     public LayerMask whatIsGround;
@@ -30,8 +33,8 @@ public class PlayerMovement : MonoBehaviour
     public float distance;
 
     [Header("Double Jump")]
-    public Image DJMask;
     public bool doubleJump;
+    public Image DJMask;
     public float doubleJumpCooldown;
     private float DJCooldownCount;
     private bool doubleJumpCooldownB = false;
@@ -49,12 +52,14 @@ public class PlayerMovement : MonoBehaviour
     private float moveInput;
     private bool grounded;
     private bool stickyContact;
-    private bool wallColision;
+    private bool wallColisionRight;
+    private bool wallColisionLeft;
     private float moveInputVer;
     private bool jumping;
     private int jumpNumber = 1;
     public static bool isDashing;
     private float startDashing;
+    private bool flip;
 
     [Header("Player info")]
     public TMP_Text playerInfo;
@@ -83,30 +88,16 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        
-
         if (!PauseMenu.pause)
         {
-            AnimationControll();
-
             // -- Uložení hoizontálního a vertikálního inputu --
             moveInput = Input.GetAxisRaw("Horizontal");
+            float moveInputS = Input.GetAxis("Horizontal");
             moveInputVer = Input.GetAxisRaw("Vertical");
 
-            //sticky contack check
-            wallColision = Physics2D.OverlapCircle(wallCheck.position, groundedRadius, whatIsWall);
-            if (wallColision && moveInput != 0)
-            {
-                stickyContact = true;
-            } else
-            {
-                Invoke("SetTouchingFalse", timeToJump);
-            }
-
-            
             // -- Dash --
-            if (Input.GetKeyDown(KeyCode.LeftShift) && moveInput != 0 && dash && !dashCooldownCountB
-                || Input.GetKeyDown(KeyCode.JoystickButton2) && moveInput != 0 && dash && !dashCooldownCountB)
+            if (Input.GetKeyDown(KeyCode.LeftShift) && moveInput != 0 && dash && !dashCooldownCountB && !climbing
+                || Input.GetKeyDown(KeyCode.JoystickButton2) && moveInput != 0 && dash && !dashCooldownCountB && !climbing)
             {
                 isDashing = true;
                 dashCooldownCountB = true;
@@ -150,12 +141,14 @@ public class PlayerMovement : MonoBehaviour
             //Otoèení postavy podle smìru pohybu
             if (moveInput < 0)
             {
-                //gameObject.GetComponent<SpriteRenderer>().flipX = true;
-                transform.eulerAngles = new Vector3(0, -180, 0);
+                gameObject.GetComponent<SpriteRenderer>().flipX = true;
+                //transform.eulerAngles = new Vector3(0, -180, 0);
+                flip = true;
             } else if (moveInput > 0)
             {
-                //gameObject.GetComponent<SpriteRenderer>().flipX = false;
-                transform.eulerAngles = new Vector3(0, 0, 0);
+                gameObject.GetComponent<SpriteRenderer>().flipX = false;
+                //transform.eulerAngles = new Vector3(0, 0, 0);
+                flip = false;
             }
 
             //Detekce skoku
@@ -183,7 +176,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
             //Doublejump  a jump
-            if (Input.GetButtonDown("Jump") && jumpNumber > 0 && doubleJump && !doubleJumpCooldownB && !Grounded() && !stickyContact && !isDashing)
+            if (Input.GetButtonDown("Jump") && jumpNumber > 0 && doubleJump && !doubleJumpCooldownB && !Grounded() && !stickyContact && !isDashing && !climbing)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                 doubleJumpCooldownB = true;
@@ -195,30 +188,36 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             }
 
-            //Jump na sticky zemi
-            if (Input.GetButtonDown("Jump") && stickyContact)
+            //sticky contack check
+            wallColisionRight = Physics2D.OverlapCircle(wallCheckRight.position, stickyContactRadius, whatIsWall);
+            wallColisionLeft = Physics2D.OverlapCircle(wallCheckLeft.position, stickyContactRadius, whatIsWall);
+            if (wallColisionRight || wallColisionLeft)
             {
-                rb.velocity = new Vector2(jumpForce * -moveInput, jumpForce);
-            }
-
-            //Animace pohybu postavy
-            if (moveInput != 0 && !stickyContact && !climbing && !jumping)
-            {
-                animator.SetBool("IsMoving", true);
+                if (moveInput != 0)
+                {
+                    stickyContact = true;
+                    //CancelInvoke();
+                } else
+                {
+                    Invoke("SetTouchingFalse", timeToJump);
+                }                
             }
             else
             {
-                animator.SetBool("IsMoving", false);
+                stickyContact = false;
+            }
+
+            //Jump na sticky zemi
+            if ((Input.GetButtonDown("Jump") && wallColisionRight && moveInput < .0f) || 
+                (Input.GetButtonDown("Jump") && wallColisionLeft && moveInput > .0f))
+            {
+                rb.velocity = new Vector2(jumpForce * moveInput, jumpForce);
             }
 
             //Slide postavy po sticky zemi
-            if (stickyContact && !Grounded() && moveInput != 0)
+            if (stickyContact && !Grounded())
             {
                 rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlideSpeed, float.MaxValue));
-                animator.SetBool("IsGrabing", true);
-            }else
-            {
-                animator.SetBool("IsGrabing", false);
             }
 
             //Detekce žebøíku
@@ -245,6 +244,8 @@ public class PlayerMovement : MonoBehaviour
                 rb.gravityScale = 3;
                 animator.SetBool("IsFadder", false);
             }
+
+            AnimationControll();
         }
     }
 
@@ -346,7 +347,8 @@ public class PlayerMovement : MonoBehaviour
             "Dash: " + an_Dash + "\n" +
             "Ladder: " + an_Ladder + "\n" +
             "Ladder speed: " + climbingSpeed + "\n" +
-            "Sticky: " + an_WallGrab + "\n";
+            "Sticky: " + an_WallGrab + "\n" +
+            "StickyContack: " + stickyContact + "\n";
     }
 
     void SetTouchingFalse()
