@@ -35,13 +35,15 @@ public class PlayerMovement : MonoBehaviour
     [Header("Double Jump")]
     public bool doubleJump;
     public Image DJMask;
+    public GameObject DJIcon;
     public float doubleJumpCooldown;
     private float DJCooldownCount;
     private bool doubleJumpCooldownB = false;
 
     [Header("Dash")]
-    public Image dashMask;
     public bool dash;
+    public Image dashMask;
+    public GameObject DIcon;
     public float dashSpeed;
     public float dashTime;
     public float dashCooldown;
@@ -82,6 +84,8 @@ public class PlayerMovement : MonoBehaviour
         startDashing = dashTime;
         DJCooldownCount = doubleJumpCooldown;
         dashCooldownCount = dashCooldown;
+        DJIcon.SetActive(doubleJump);
+        DIcon.SetActive(dash);
         
     }
 
@@ -157,7 +161,7 @@ public class PlayerMovement : MonoBehaviour
                     DJCooldownCount = doubleJumpCooldown;
                     jumpNumber = 1;
                 }
-            }
+            }             
 
             //Doublejump  a jump
             if (Input.GetButtonDown("Jump") && jumpNumber > 0 && doubleJump && !doubleJumpCooldownB && !Grounded() && !stickyContact && !isDashing && !climbing)

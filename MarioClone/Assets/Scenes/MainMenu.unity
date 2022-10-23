@@ -5192,9 +5192,9 @@ MonoBehaviour:
   coinsInLevel: 
   levelLock: 
   levels:
-  - {fileID: 11400000, guid: fbc43354a6ae5004296a835336254247, type: 2}
-  - {fileID: 11400000, guid: 83b35cfd32b78304684e1be444d11e6f, type: 2}
   - {fileID: 11400000, guid: 86af3b2ef61defc4d9d51f2e7b03ea5e, type: 2}
+  - {fileID: 11400000, guid: 83b35cfd32b78304684e1be444d11e6f, type: 2}
+  - {fileID: 11400000, guid: fbc43354a6ae5004296a835336254247, type: 2}
 --- !u!4 &559619718
 Transform:
   m_ObjectHideFlags: 0

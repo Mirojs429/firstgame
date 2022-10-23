@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b46fcc6009231fe4cbadf2c74f797e62, type: 3}
-  m_Name: TestLevel 1
+  m_Name: 1-3
   m_EditorClassIdentifier: 
-  levelID: 2
-  levelName: 1-2
+  levelID: 3
+  levelName: 1-3
   levelIMG: {fileID: 21300000, guid: a5a91b6d7a114c84c84495c874907b46, type: 3}
-  sceneToLoad: {fileID: 102900000, guid: b8ef3227fd0c8d74c87ae91f59072315, type: 3}
-  maxCoins: 5
+  sceneToLoad: {fileID: 102900000, guid: 4ae828d28a987824ab285328693561b3, type: 3}
+  maxCoins: 19

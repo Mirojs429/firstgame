@@ -89,15 +89,7 @@ public class NextLevel : MonoBehaviour
     {
         Time.timeScale = 1f;
         PauseMenu.pause = false;
-        //PlayerScore.coins = 0;
-        //PlayerScore.enemies = 0;
         PlayerScore.ResetScore();
         SceneManager.LoadScene(0);
-    }
-
-    private void Update()
-    {
-        Debug.Log("Aktuální level: " + currentLevel.levelName);
-        Debug.Log("Další level: " + nextLevel.levelName);
     }
 }
