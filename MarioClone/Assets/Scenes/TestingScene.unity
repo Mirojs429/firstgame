@@ -3941,7 +3941,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1219618023}
   offset: {x: 0, y: 1.5, z: -1}
-  smoothSpeed: 1
+  smoothSpeed: 0.15
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -3969,7 +3969,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -17476,6 +17476,7 @@ GameObject:
   - component: {fileID: 1219618024}
   - component: {fileID: 1219618029}
   - component: {fileID: 1219618030}
+  - component: {fileID: 1219618031}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -17543,7 +17544,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1219618021}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.75, y: -27.36, z: 0}
+  m_LocalPosition: {x: 45, y: -25.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -17568,9 +17569,9 @@ MonoBehaviour:
   rb: {fileID: 1219618025}
   jumpForce: 12
   Speed: 5
-  stickyContactRadius: 0.2
+  stickyContactRadius: 0.1
   wallSlideSpeed: 1
-  timeToJump: 0.2
+  timeToJump: 0.1
   groundCheck: {fileID: 1718704646}
   wallCheckRight: {fileID: 1424334887}
   wallCheckLeft: {fileID: 51214859}
@@ -17588,11 +17589,11 @@ MonoBehaviour:
   distance: 5
   doubleJump: 1
   DJMask: {fileID: 1653788699}
-  DJIcon: {fileID: 0}
+  DJIcon: {fileID: 1464856544}
   doubleJumpCooldown: 0.5
   dash: 1
   dashMask: {fileID: 1007887355}
-  DIcon: {fileID: 0}
+  DIcon: {fileID: 1954259165}
   dashSpeed: 15
   dashTime: 0.3
   dashCooldown: 0.5
@@ -17631,7 +17632,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0013286769, y: 0.0008907318}
+  m_Offset: {x: -0.0014629364, y: -0.074588776}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -17642,8 +17643,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.36996692, y: 0.6184006}
-  m_EdgeRadius: 0
+  m_Size: {x: 0.30853653, y: 0.7135124}
+  m_EdgeRadius: 0.03
 --- !u!58 &1219618027
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -17651,7 +17652,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1219618021}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -17708,6 +17709,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathMenu: {fileID: 206402579}
   anim: {fileID: 1219618028}
+--- !u!61 &1219618031
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219618021}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 49476fe5028b3e2438ab0e9b5262da79, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0026073456, y: -0.33}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.26494217, y: 0.29545784}
+  m_EdgeRadius: 0.02
 --- !u!1 &1220231202
 GameObject:
   m_ObjectHideFlags: 0
@@ -21524,11 +21551,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6464711767320522448, guid: c8c46f3ba57297f46b48ba804242d7ff, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 50.44
+      value: 57.5
       objectReference: {fileID: 0}
     - target: {fileID: 6464711767320522448, guid: c8c46f3ba57297f46b48ba804242d7ff, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -25.15
+      value: -23.5
       objectReference: {fileID: 0}
     - target: {fileID: 6464711767320522448, guid: c8c46f3ba57297f46b48ba804242d7ff, type: 3}
       propertyPath: m_LocalPosition.z
@@ -24424,7 +24451,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2066756366}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 735bce3c81e11e14b9d51ca538d5affb, type: 3}
   m_Name: 
