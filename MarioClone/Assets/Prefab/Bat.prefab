@@ -133,7 +133,7 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 1024
-  renderer: {fileID: 8515189987308414860}
+  render: {fileID: 8515189987308414860}
 --- !u!61 &8515189987308414858
 BoxCollider2D:
   m_ObjectHideFlags: 0

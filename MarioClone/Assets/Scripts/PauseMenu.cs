@@ -14,8 +14,6 @@ public class PauseMenu : MonoBehaviour
         pause = false;
         deathMenu.SetActive(false);
         pauseMenu.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
     public void Pause()
@@ -24,7 +22,6 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         pause = true;
     }
-
     public void Resume()
     {
         pauseMenu.SetActive(false);
@@ -49,12 +46,22 @@ public class PauseMenu : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7) && !pause)
+        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7)) && !pause && !PlayerHealth.died)
         {
             Pause();
-        }else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7) && pause)
+        }else if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7)) && pause && !PlayerHealth.died)
         {
             Resume();
+        }
+
+        if (pause)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        } else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
 }

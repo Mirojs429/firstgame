@@ -10962,7 +10962,7 @@ MonoBehaviour:
   nextLevelMenu: {fileID: 2125330303}
   levelID: 0
   coins: {fileID: 1539988254}
-  level: {fileID: 11400000, guid: 86af3b2ef61defc4d9d51f2e7b03ea5e, type: 2}
+  enemies: {fileID: 0}
 --- !u!212 &1324144442
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11081,6 +11081,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinsScore: {fileID: 1859970682}
+  enemiesScore: {fileID: 0}
 --- !u!114 &1338504417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11096,10 +11097,12 @@ MonoBehaviour:
   rb: {fileID: 1338504420}
   jumpForce: 12
   Speed: 5
+  stickyContactRadius: 0
   wallSlideSpeed: 1
   timeToJump: 0.1
   groundCheck: {fileID: 1432558380}
-  wallCheck: {fileID: 1935876845}
+  wallCheckRight: {fileID: 0}
+  wallCheckLeft: {fileID: 0}
   groundedRadius: 0.1
   whatIsGround:
     serializedVersion: 2
@@ -11112,7 +11115,15 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   distance: 5
-  climbing: 0
+  doubleJump: 0
+  DJMask: {fileID: 0}
+  doubleJumpCooldown: 0
+  dashMask: {fileID: 0}
+  dash: 0
+  dashSpeed: 0
+  dashTime: 0
+  dashCooldown: 0
+  playerInfo: {fileID: 0}
 --- !u!95 &1338504418
 Animator:
   serializedVersion: 4
@@ -11256,7 +11267,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1338504414}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.42, y: -27.44, z: 0}
+  m_LocalPosition: {x: 63.65, y: -27.27, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

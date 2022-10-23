@@ -10,7 +10,7 @@ public class Bat_Neutral : MonoBehaviour
 
     public Transform hitPointA, hitPointB, hitPointC;
     public LayerMask whatIsPlayer;
-    public SpriteRenderer renderer;
+    public SpriteRenderer render;
     private bool hitA, hitB, hitC;
 
     public static bool kill;
@@ -27,12 +27,12 @@ public class Bat_Neutral : MonoBehaviour
         if (transform.position == start.position)
         {
             nextPos = end.position;
-            renderer.flipX = true;
+            render.flipX = true;
         }
         if (transform.position == end.position)
         {
             nextPos = start.position;
-            renderer.flipX = false;
+            render.flipX = false;
         }
         gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, nextPos, speed * Time.deltaTime);
 

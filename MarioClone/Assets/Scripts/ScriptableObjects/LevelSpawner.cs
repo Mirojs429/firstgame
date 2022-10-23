@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class LevelSpawner : MonoBehaviour
 {
-    [SerializeField] private Level[] levels;
     [SerializeField] private GameObject brick;
     private LevelDisplay levelDisplay;
 
@@ -19,13 +18,14 @@ public class LevelSpawner : MonoBehaviour
 
         levelDisplay = gameObject.GetComponent<LevelDisplay>();
 
-        for (int i = 0; i < levels.Length; i++)
+        for (int i = 0; i < SaveManager.instance.levels.Length; i++)
         {
+            Level lev = (Level)SaveManager.instance.levels[i];
             GameObject b = Instantiate(brick, transform.position, Quaternion.identity);
             levelDisplay = b.GetComponent<LevelDisplay>();
-            b.name = levels[i].levelName;
+            b.name = lev.levelName;
             b.transform.SetParent(transform);
-            levelDisplay.DisplayLevel(levels[i]);
+            levelDisplay.DisplayLevel(lev);
             
         }
 

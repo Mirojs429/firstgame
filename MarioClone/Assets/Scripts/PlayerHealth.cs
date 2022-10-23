@@ -8,9 +8,11 @@ public class PlayerHealth : MonoBehaviour
     public GameObject deathMenu;
     public Animator anim;
     private Rigidbody2D rb;
+    public static bool died;
 
     private void Start()
     {
+        died = false;
         rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
@@ -40,7 +42,8 @@ public class PlayerHealth : MonoBehaviour
         PauseMenu.pause = true;
         Enemy.kill = false;
         FireEnemy.kill = false;
-
+        Bat_Neutral.kill = false;
+        died = true;
     }
 
     private void OnTriggerEnter2D(Collider2D col)

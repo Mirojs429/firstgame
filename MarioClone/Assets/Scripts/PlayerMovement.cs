@@ -55,11 +55,10 @@ public class PlayerMovement : MonoBehaviour
     private bool wallColisionRight;
     private bool wallColisionLeft;
     private float moveInputVer;
-    private bool jumping;
     private int jumpNumber = 1;
     public static bool isDashing;
     private float startDashing;
-    private bool flip;
+    private bool doubleJumping;
 
     [Header("Player info")]
     public TMP_Text playerInfo;
@@ -142,24 +141,9 @@ public class PlayerMovement : MonoBehaviour
             if (moveInput < 0)
             {
                 gameObject.GetComponent<SpriteRenderer>().flipX = true;
-                //transform.eulerAngles = new Vector3(0, -180, 0);
-                flip = true;
             } else if (moveInput > 0)
             {
                 gameObject.GetComponent<SpriteRenderer>().flipX = false;
-                //transform.eulerAngles = new Vector3(0, 0, 0);
-                flip = false;
-            }
-
-            //Detekce skoku
-            if(!Grounded() && !climbing && !stickyContact)
-            {
-                jumping = true;
-                //animator.SetBool("IsJumping", true);
-            } else
-            {
-                //animator.SetBool("IsJumping", false);
-                jumping = false;
             }
 
             //Doublejump odpoèet
@@ -180,6 +164,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                 doubleJumpCooldownB = true;
+                doubleJumping = true;
                 DJMask.fillAmount = 1;
                 jumpNumber--;
             }
@@ -269,7 +254,7 @@ public class PlayerMovement : MonoBehaviour
             an_Moving = false;
         }
 
-        if (!Grounded() && rb.velocity.y > 1f && !stickyContact && !climbing && !isDashing)
+        if (!Grounded() && rb.velocity.y > 1f && !stickyContact && !climbing && !isDashing && !doubleJumping)
         {
             an_Jump = true;
             animator.Play("Player_jump");
@@ -278,13 +263,18 @@ public class PlayerMovement : MonoBehaviour
             an_Jump = false;
         }
 
-        if (Input.GetButtonDown("Jump") && jumpNumber > 0 && doubleJump && !doubleJumpCooldownB && !Grounded() && !stickyContact && !isDashing)
+        if (doubleJumping)
         {
             an_DoubleJump = true;
-            animator.Play("Player_jump");
+            animator.Play("Player_doubleJump");
         } else
         {
             an_DoubleJump = false;
+        }
+
+        if (isDashing || stickyContact || climbing)
+        {
+            doubleJumping = false;
         }
 
         if (!Grounded() && rb.velocity.y < -1f && !stickyContact && !climbing && !isDashing)
@@ -349,6 +339,11 @@ public class PlayerMovement : MonoBehaviour
             "Ladder speed: " + climbingSpeed + "\n" +
             "Sticky: " + an_WallGrab + "\n" +
             "StickyContack: " + stickyContact + "\n";
+    }
+
+    public void DoubleJumpOff()
+    {
+        doubleJumping = false;
     }
 
     void SetTouchingFalse()

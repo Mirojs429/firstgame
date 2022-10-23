@@ -11,26 +11,38 @@ public class NextLevel : MonoBehaviour
     [HideInInspector] public int levelID;
     public TMP_Text coins;
     public TMP_Text enemies;
-    public Level level;
+    private Level nextLevel;
     private int numOfEnemies;
+
+    private int levelIndex;
+    private Level currentLevel;
 
     public void Start()
     {
         numOfEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        levelIndex = SceneManager.GetActiveScene().buildIndex;
+        currentLevel = (Level)SaveManager.instance.levels[levelIndex - 1];
+        if ((Level)SaveManager.instance.levels[levelIndex] != null)
+        {
+            nextLevel = (Level)SaveManager.instance.levels[levelIndex];
+        } else
+        {
+            nextLevel = currentLevel;
+        }
     }
 
     public void SaveLevel()
     {
-        if (SaveManager.instance.coinsInLevel[SceneManager.GetActiveScene().buildIndex] < PlayerScore.coins)
+        if (SaveManager.instance.coinsInLevel[currentLevel.levelID] < PlayerScore.coins)
         {
-            SaveManager.instance.coinsInLevel[SceneManager.GetActiveScene().buildIndex] = PlayerScore.coins;
+            SaveManager.instance.coinsInLevel[currentLevel.levelID] = PlayerScore.coins;
         }
         
         PlayerScore.ResetScore();
 
-        if (SceneUtility.GetScenePathByBuildIndex(levelID) != "")
+        if (SceneUtility.GetScenePathByBuildIndex(currentLevel.levelID) != "")
         {
-            SaveManager.instance.levelLock[levelID] = 1;
+            SaveManager.instance.levelLock[nextLevel.levelID] = 1;
             SaveManager.instance.Save();
         }
         else
@@ -48,9 +60,8 @@ public class NextLevel : MonoBehaviour
             {
                 Time.timeScale = 0f;
                 PauseMenu.pause = true;
-                levelID = SceneManager.GetActiveScene().buildIndex + 1;
                 nextLevelMenu.SetActive(true);
-                coins.text = PlayerScore.coins + " / " + level.maxCoins.ToString();
+                coins.text = PlayerScore.coins + " / " + currentLevel.maxCoins.ToString();
                 enemies.text = PlayerScore.enemies.ToString() + " / " + numOfEnemies;
                 SaveLevel();
             }
@@ -61,11 +72,11 @@ public class NextLevel : MonoBehaviour
     {
         Time.timeScale = 1f;
         PauseMenu.pause = false;
-        if (SceneUtility.GetScenePathByBuildIndex(levelID) != "")
+        if (SceneUtility.GetScenePathByBuildIndex(nextLevel.levelID) != "")
         {
-            SaveManager.instance.levelLock[levelID] = 1;
+            SaveManager.instance.levelLock[nextLevel.levelID] = 1;
             SaveManager.instance.Save();
-            SceneManager.LoadScene(levelID);
+            SceneManager.LoadScene(nextLevel.levelID);
         }
         else
         {
@@ -78,8 +89,15 @@ public class NextLevel : MonoBehaviour
     {
         Time.timeScale = 1f;
         PauseMenu.pause = false;
-        PlayerScore.coins = 0;
-        PlayerScore.enemies = 0;
+        //PlayerScore.coins = 0;
+        //PlayerScore.enemies = 0;
+        PlayerScore.ResetScore();
         SceneManager.LoadScene(0);
+    }
+
+    private void Update()
+    {
+        Debug.Log("Aktuální level: " + currentLevel.levelName);
+        Debug.Log("Další level: " + nextLevel.levelName);
     }
 }
