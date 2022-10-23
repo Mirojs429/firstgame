@@ -21043,7 +21043,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   silaOdraz: 6
-  dead: {fileID: 8243977159048288784, guid: 6d51bd146a0e8914bbcba8c7cd90cef9, type: 3}
+  dead: {fileID: 8233261066145054874, guid: d5baccdca5e69e048a02e34f389122de, type: 3}
 --- !u!114 &1620249835
 MonoBehaviour:
   m_ObjectHideFlags: 0
