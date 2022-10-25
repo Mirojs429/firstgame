@@ -36,21 +36,14 @@ public class Enemy : MonoBehaviour
 
         if (hitA || hitB)
         {
-            if (PlayerMovement.isDashing == false)
+            if (!PlayerMovement.isDashing)
             {
-                kill = true;
+                //kill = true;
+                GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().Hit();
             }
         }
 
     }
-
-  /*  void FixedUpdate()
-    {
-        if (mustPatrol)
-        {
-            mustFlip = !Physics2D.OverlapCircle(groundCheck.position, 0.1f, whatIsGround);
-        }
-    }*/
 
     void Patrol()
     {

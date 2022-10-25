@@ -350,6 +350,12 @@ public class PlayerMovement : MonoBehaviour
         doubleJumping = false;
     }
 
+    public static bool IsDashing()
+    {
+        bool i = isDashing;
+        return i;
+    }
+
     IEnumerator WallJump()
     {
         canMove = false;

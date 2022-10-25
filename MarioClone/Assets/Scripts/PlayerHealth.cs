@@ -25,14 +25,6 @@ public class PlayerHealth : MonoBehaviour
             rb.velocity = Vector2.zero;
             anim.Play("Player_death");
         }
-
-        if(Enemy.kill == true || FireEnemy.kill == true || Bat_Neutral.kill == true)
-        {
-            PauseMenu.pause = true;
-            rb.gravityScale = 0f;
-            rb.velocity = Vector2.zero;
-            anim.Play("Player_death");
-        }
     }
 
     public void Death()
@@ -40,10 +32,15 @@ public class PlayerHealth : MonoBehaviour
         deathMenu.SetActive(true);
         Time.timeScale = 0f;
         PauseMenu.pause = true;
-        Enemy.kill = false;
-        FireEnemy.kill = false;
-        Bat_Neutral.kill = false;
         died = true;
+    }
+
+    public void Hit()
+    {
+        PauseMenu.pause = true;
+        rb.gravityScale = 0f;
+        rb.velocity = Vector2.zero;
+        anim.Play("Player_death");
     }
 
     private void OnTriggerEnter2D(Collider2D col)

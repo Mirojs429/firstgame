@@ -44,7 +44,7 @@ public class Bat_Neutral : MonoBehaviour
         {
             if (PlayerMovement.isDashing == false)
             {
-                kill = true;
+                GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().Hit();
             }
         }
 

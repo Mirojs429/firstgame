@@ -81,7 +81,10 @@ public class FireEnemy : MonoBehaviour
 
         if (hitA || hitB)
         {
-            kill = true;
+            if (!PlayerMovement.isDashing)
+            {
+                GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().Hit();
+            }
         }
     }
 
