@@ -63,5 +63,17 @@ public class PauseMenu : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
+
+        if (Input.GetJoystickNames()[0] != null)
+        {
+            Debug.Log("Pøipojeno");
+            Debug.Log(Input.GetJoystickNames()[0]);
+            
+        } else
+        {
+            Debug.Log("Nepøipojeno");
+        }
     }
+
+
 }

@@ -356,6 +356,16 @@ public class PlayerMovement : MonoBehaviour
         return i;
     }
 
+    public void EnableDoubleJump(bool DJactive)
+    {
+        doubleJump = DJactive;
+    }
+
+    public void EnableDash(bool Dactive)
+    {
+        dash = Dactive;
+    }
+
     IEnumerator WallJump()
     {
         canMove = false;

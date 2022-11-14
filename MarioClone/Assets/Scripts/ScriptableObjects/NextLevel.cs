@@ -17,7 +17,7 @@ public class NextLevel : MonoBehaviour
     private int levelIndex;
     private Level currentLevel;
 
-    public void Start()
+    /*public void Start()
     {
         numOfEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
         levelIndex = SceneManager.GetActiveScene().buildIndex;
@@ -49,7 +49,7 @@ public class NextLevel : MonoBehaviour
         {
             SaveManager.instance.Save();
         }
-    }
+    }*/
 
     private void OnTriggerEnter2D(Collider2D col)
     {
@@ -60,14 +60,15 @@ public class NextLevel : MonoBehaviour
             {
                 Time.timeScale = 0f;
                 PauseMenu.pause = true;
-                nextLevelMenu.SetActive(true);
+                GameObject.FindObjectOfType<NextLevelLoader>().NextLevelActive();
+                /*nextLevelMenu.SetActive(true);
                 coins.text = PlayerScore.coins + " / " + currentLevel.maxCoins.ToString();
                 enemies.text = PlayerScore.enemies.ToString() + " / " + numOfEnemies;
-                SaveLevel();
+                SaveLevel();*/
             }
         }
     }
-
+    /*
     public void NextLevelButton()
     {
         Time.timeScale = 1f;
@@ -91,5 +92,5 @@ public class NextLevel : MonoBehaviour
         PauseMenu.pause = false;
         PlayerScore.ResetScore();
         SceneManager.LoadScene(0);
-    }
+    }*/
 }
