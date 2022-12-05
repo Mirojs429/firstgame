@@ -28,8 +28,6 @@ public class FireEnemy : MonoBehaviour
     public Animator anim;
 
     public static bool kill;
-    private Vector3 rot;
-    private float rotZ;
     void Start()
     {
         mustPatrol = true;
@@ -49,14 +47,6 @@ public class FireEnemy : MonoBehaviour
         {
             mustFlip = !Physics2D.OverlapCircle(groundCheck.position, 0.1f, whatIsGround);
             Patrol();
-        }
-
-        rot = player.position - transform.position;
-        rotZ = Mathf.Atan2(rot.y, rot.x) * Mathf.Rad2Deg;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, rot, distace);
-        if (hit.collider != null)
-        {
-            Debug.Log(hit.collider.name);
         }
 
         distace = Vector2.Distance(transform.position, player.position);
@@ -126,10 +116,5 @@ public class FireEnemy : MonoBehaviour
             rb.AddForce(firePoint.up * bulletForce, ForceMode2D.Impulse);
             wait = timeBTWshots;
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Debug.DrawLine(transform.position, new Vector3(0, Mathf.Sin(Mathf.Deg2Rad * rotZ), Mathf.Cos(Mathf.Deg2Rad * rotZ)), Color.green);
     }
 }
