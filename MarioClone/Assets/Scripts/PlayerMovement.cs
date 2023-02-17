@@ -76,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
     private bool an_Ladder; //vertical input > 0 & climbing
     private int climbingSpeed;
     private bool an_WallGrab; //stickyContact & moveinput > 0
+    private PauseMenu pauseMenu;
 
     // -- Sound Controller --
 
@@ -87,12 +88,12 @@ public class PlayerMovement : MonoBehaviour
         dashCooldownCount = dashCooldown;
         DJIcon.SetActive(doubleJump);
         DIcon.SetActive(dash);
-        
+        pauseMenu = FindObjectOfType<PauseMenu>();
     }
 
     void Update()
     {
-        if (!PauseMenu.pause)
+        if (!pauseMenu.isPaused())
         {
             // -- Uložení hoizontálního a vertikálního inputu --
             moveInput = Input.GetAxisRaw("Horizontal");
@@ -389,5 +390,10 @@ public class PlayerMovement : MonoBehaviour
         }
 
         return grounded;
+    }
+
+    public void SetMovement(bool allow)
+    {
+        canMove = allow;
     }
 }

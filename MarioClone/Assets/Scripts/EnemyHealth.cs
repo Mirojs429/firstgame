@@ -28,10 +28,9 @@ public class EnemyHealth : MonoBehaviour
     {
         if (PlayerMovement.isDashing == false)
         {
-            //if (Physics2D.OverlapCircle(deadCheck.position, 0.1f, whatIsPlayer))
             if (Physics2D.OverlapBox(deadCheck.position, new Vector2(.4f, .15f), 0, whatIsPlayer))
             {
-                PlayerScore.enemies += 1;
+                player.GetComponent<PlayerScore>().SetEnemiesCount(1);
                 rb = player.transform.GetComponent<Rigidbody2D>();
                 rb.velocity = new Vector2(rb.velocity.x, silaOdraz);
                 Instantiate(dead, transform.position, Quaternion.identity);

@@ -13,7 +13,7 @@ public class Coin : MonoBehaviour
             colis += 1;
             if(colis == 1)
             {
-                PlayerScore.coins += 1;
+                GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScore>().SetCoinsCount(1);
                 Destroy(gameObject);
             }
         }

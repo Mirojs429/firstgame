@@ -11,45 +11,12 @@ public class NextLevel : MonoBehaviour
     [HideInInspector] public int levelID;
     public TMP_Text coins;
     public TMP_Text enemies;
-    private Level nextLevel;
-    private int numOfEnemies;
+    private PauseMenu pauseMenu;
 
-    private int levelIndex;
-    private Level currentLevel;
-
-    /*public void Start()
+    private void Start()
     {
-        numOfEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
-        levelIndex = SceneManager.GetActiveScene().buildIndex;
-        currentLevel = (Level)SaveManager.instance.levels[levelIndex - 1];
-        if ((Level)SaveManager.instance.levels[levelIndex] != null)
-        {
-            nextLevel = (Level)SaveManager.instance.levels[levelIndex];
-        } else
-        {
-            nextLevel = currentLevel;
-        }
+        pauseMenu = FindObjectOfType<PauseMenu>();
     }
-
-    public void SaveLevel()
-    {
-        if (SaveManager.instance.coinsInLevel[currentLevel.levelID] < PlayerScore.coins)
-        {
-            SaveManager.instance.coinsInLevel[currentLevel.levelID] = PlayerScore.coins;
-        }
-        
-        PlayerScore.ResetScore();
-
-        if (SceneUtility.GetScenePathByBuildIndex(currentLevel.levelID) != "")
-        {
-            SaveManager.instance.levelLock[nextLevel.levelID] = 1;
-            SaveManager.instance.Save();
-        }
-        else
-        {
-            SaveManager.instance.Save();
-        }
-    }*/
 
     private void OnTriggerEnter2D(Collider2D col)
     {
@@ -58,39 +25,9 @@ public class NextLevel : MonoBehaviour
             colis += 1;
             if (colis == 1)
             {
-                Time.timeScale = 0f;
-                PauseMenu.pause = true;
-                GameObject.FindObjectOfType<NextLevelLoader>().NextLevelActive();
-                /*nextLevelMenu.SetActive(true);
-                coins.text = PlayerScore.coins + " / " + currentLevel.maxCoins.ToString();
-                enemies.text = PlayerScore.enemies.ToString() + " / " + numOfEnemies;
-                SaveLevel();*/
+                pauseMenu.PauseGame();
+                FindObjectOfType<NextLevelLoader>().NextLevelMenuActive();
             }
         }
     }
-    /*
-    public void NextLevelButton()
-    {
-        Time.timeScale = 1f;
-        PauseMenu.pause = false;
-        if (SceneUtility.GetScenePathByBuildIndex(nextLevel.levelID) != "")
-        {
-            SaveManager.instance.levelLock[nextLevel.levelID] = 1;
-            SaveManager.instance.Save();
-            SceneManager.LoadScene(nextLevel.levelID);
-        }
-        else
-        {
-            SceneManager.LoadScene(0);
-            SaveManager.instance.Save();
-        }
-    }
-
-    public void MainMenu()
-    {
-        Time.timeScale = 1f;
-        PauseMenu.pause = false;
-        PlayerScore.ResetScore();
-        SceneManager.LoadScene(0);
-    }*/
 }

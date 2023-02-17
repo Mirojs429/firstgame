@@ -5,24 +5,24 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public GameObject deathMenu;
+    [SerializeField] private GameObject deathMenu;
     public Animator anim;
     private Rigidbody2D rb;
-    public static bool died;
+    private PauseMenu pauseMenu;
+    private bool died;
 
     private void Start()
     {
         died = false;
         rb = gameObject.GetComponent<Rigidbody2D>();
+        pauseMenu = FindObjectOfType<PauseMenu>();
     }
 
     private void Update()
     {
         if (gameObject.transform.position.y <= -100)
         {
-            PauseMenu.pause = true;
-            rb.gravityScale = 0f;
-            rb.velocity = Vector2.zero;
+            pauseMenu.DeathPause();
             anim.Play("Player_death");
         }
     }
@@ -30,16 +30,13 @@ public class PlayerHealth : MonoBehaviour
     public void Death()
     {
         deathMenu.SetActive(true);
-        Time.timeScale = 0f;
-        PauseMenu.pause = true;
+        pauseMenu.PauseGame();
         died = true;
     }
 
     public void Hit()
     {
-        PauseMenu.pause = true;
-        rb.gravityScale = 0f;
-        rb.velocity = Vector2.zero;
+        pauseMenu.DeathPause();
         anim.Play("Player_death");
     }
 
@@ -49,12 +46,15 @@ public class PlayerHealth : MonoBehaviour
         {
             if (col.gameObject.CompareTag("Trap"))
             {
-                PauseMenu.pause = true;
-                rb.gravityScale = 0f;
-                rb.velocity = Vector2.zero;
+                pauseMenu.DeathPause();
                 anim.Play("Player_death");
             }
         }
+    }
+
+    public bool PlayerDied()
+    {
+        return died;
     }
 
 }

@@ -8,16 +8,17 @@ public class EndGame : MonoBehaviour
     public GameObject credits;
     private int levelIndex;
     private Level currentLevel;
+    private PlayerScore playerScore;
 
     public void SaveLevel()
     {
-        if (SaveManager.instance.coinsInLevel[SceneManager.GetActiveScene().buildIndex] < PlayerScore.coins)
+        if (SaveManager.instance.coinsInLevel[SceneManager.GetActiveScene().buildIndex] < playerScore.GetCoinsCount())
         {
-            SaveManager.instance.coinsInLevel[SceneManager.GetActiveScene().buildIndex] = PlayerScore.coins;
+            SaveManager.instance.coinsInLevel[SceneManager.GetActiveScene().buildIndex] = playerScore.GetCoinsCount();
         }
 
         SaveManager.instance.Save();
-        PlayerScore.ResetScore();
+        playerScore.ResetScore();
     }
 
     public void Start()
@@ -25,6 +26,7 @@ public class EndGame : MonoBehaviour
         credits.SetActive(false);
         levelIndex = SceneManager.GetActiveScene().buildIndex;
         currentLevel = (Level)SaveManager.instance.levels[levelIndex - 1];
+        playerScore = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScore>();
     }
 
     private void OnTriggerEnter2D(Collider2D col)

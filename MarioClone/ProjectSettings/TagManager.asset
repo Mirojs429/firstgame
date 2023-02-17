@@ -10,6 +10,7 @@ TagManager:
   - BulletStop
   - Enemy
   - Coin
+  - Sign
   layers:
   - Default
   - TransparentFX

@@ -6,13 +6,14 @@ using TMPro;
 
 public class NextLevelLoader : MonoBehaviour
 {
-    private int colis = 0;
     public GameObject nextLevelMenu;
     [HideInInspector] public int levelID;
     public TMP_Text coins;
     public TMP_Text enemies;
     private Level nextLevel;
     private int numOfEnemies;
+    private PlayerScore playerScore;
+    private PauseMenu pauseMenu;
 
     private int levelIndex;
     private Level currentLevel;
@@ -22,6 +23,8 @@ public class NextLevelLoader : MonoBehaviour
         numOfEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
         levelIndex = SceneManager.GetActiveScene().buildIndex;
         currentLevel = (Level)SaveManager.instance.levels[levelIndex - 1];
+        playerScore = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScore>();
+        pauseMenu = FindObjectOfType<PauseMenu>();
         if ((Level)SaveManager.instance.levels[levelIndex] != null)
         {
             nextLevel = (Level)SaveManager.instance.levels[levelIndex];
@@ -34,8 +37,7 @@ public class NextLevelLoader : MonoBehaviour
 
     public void NextLevelButton()
     {
-        Time.timeScale = 1f;
-        PauseMenu.pause = false;
+        pauseMenu.ResumeGame();
         if (SceneUtility.GetScenePathByBuildIndex(nextLevel.levelID) != "")
         {
             SaveManager.instance.levelLock[nextLevel.levelID] = 1;
@@ -51,20 +53,19 @@ public class NextLevelLoader : MonoBehaviour
 
     public void MainMenu()
     {
-        Time.timeScale = 1f;
-        PauseMenu.pause = false;
-        PlayerScore.ResetScore();
+        pauseMenu.ResumeGame();
+        playerScore.ResetScore();
         SceneManager.LoadScene(0);
     }
 
     public void SaveLevel()
     {
-        if (SaveManager.instance.coinsInLevel[currentLevel.levelID] < PlayerScore.coins)
+        if (SaveManager.instance.coinsInLevel[currentLevel.levelID] < playerScore.GetCoinsCount())
         {
-            SaveManager.instance.coinsInLevel[currentLevel.levelID] = PlayerScore.coins;
+            SaveManager.instance.coinsInLevel[currentLevel.levelID] = playerScore.GetCoinsCount();
         }
 
-        PlayerScore.ResetScore();
+        playerScore.ResetScore();
 
         if (SceneUtility.GetScenePathByBuildIndex(currentLevel.levelID) != "")
         {
@@ -77,11 +78,11 @@ public class NextLevelLoader : MonoBehaviour
         }
     }
 
-    public void NextLevelActive()
+    public void NextLevelMenuActive()
     {
         nextLevelMenu.SetActive(true);
-        coins.text = PlayerScore.coins + " / " + currentLevel.maxCoins.ToString();
-        enemies.text = PlayerScore.enemies.ToString() + " / " + numOfEnemies;
+        coins.text = playerScore.GetCoinsCount() + " / " + currentLevel.maxCoins.ToString();
+        enemies.text = playerScore.GetEnemiesCount() + " / " + numOfEnemies;
         SaveLevel();
     }
 }

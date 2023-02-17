@@ -7,11 +7,11 @@ using TMPro;
 public class PlayerScore : MonoBehaviour
 {
     [Header("Coins")]
-    public static int coins = 0;
+    public int coins = 0;
     public TMP_Text coinsScore;
 
     [Header("Enemies")]
-    public static int enemies = 0;
+    public int enemies = 0;
     public TMP_Text enemiesScore;
 
     void Start()
@@ -26,9 +26,29 @@ public class PlayerScore : MonoBehaviour
         enemiesScore.text = enemies.ToString();
     }
 
-    public static void ResetScore()
+    public void ResetScore()
     {
         coins = 0;
         enemies = 0;
+    }
+
+    public void SetEnemiesCount(int i)
+    {
+        enemies += i;
+    }
+
+    public void SetCoinsCount(int i)
+    {
+        coins += i;
+    }
+
+    public int GetCoinsCount()
+    {
+        return coins;
+    }
+
+    public int GetEnemiesCount()
+    {
+        return enemies;
     }
 }

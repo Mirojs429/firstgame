@@ -7,49 +7,50 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenu;
     public GameObject deathMenu;
-    public static bool pause;
+    public bool pause;
+    private GameObject player;
+    private PlayerHealth playerHealth;
+    private PlayerScore playerScore;
 
     private void Start()
     {
         pause = false;
-        //deathMenu.SetActive(false);
-        //pauseMenu.SetActive(false);
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerHealth = FindObjectOfType<PlayerHealth>();
+        playerScore = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScore>();
     }
 
     public void Pause()
     {
         pauseMenu.SetActive(true);
-        Time.timeScale = 0f;
-        pause = true;
+        PauseGame();
     }
     public void Resume()
     {
         pauseMenu.SetActive(false);
-        Time.timeScale = 1f;
-        pause = false;
+        ResumeGame();
     }
 
     public void Restart()
     {
-        pause = false;
-        Time.timeScale = 1f;
-        PlayerScore.ResetScore();
+        ResumeGame();
+        playerScore.ResetScore();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);        
     }
 
     public void MainMenu()
     {
-        Time.timeScale = 1f;
-        PlayerScore.ResetScore();
+        ResumeGame();
+        playerScore.ResetScore();
         SceneManager.LoadScene(0);
     }
 
     private void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7)) && !pause && !PlayerHealth.died)
+        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7)) && !pause && !playerHealth.PlayerDied())
         {
             Pause();
-        }else if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7)) && pause && !PlayerHealth.died)
+        }else if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7)) && pause && !playerHealth.PlayerDied())
         {
             Resume();
         }
@@ -65,5 +66,32 @@ public class PauseMenu : MonoBehaviour
         }*/
     }
 
+    public void PauseGame()
+    {
+        Time.timeScale = 0f; 
+        player.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        player.GetComponent<Rigidbody2D>().gravityScale = 0f;
+        player.GetComponent<PlayerMovement>().SetMovement(false);
+        pause = true;
+    }
 
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        player.GetComponent<PlayerMovement>().SetMovement(true);
+        player.GetComponent<Rigidbody2D>().gravityScale = 3f;
+        pause = false;
+    }
+
+    public void DeathPause()
+    {
+        player.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        player.GetComponent<Rigidbody2D>().gravityScale = 0f;
+        pause = true;
+    }
+
+    public bool isPaused()
+    {
+        return pause;
+    }
 }

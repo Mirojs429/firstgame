@@ -12,14 +12,11 @@ public class Enemy : MonoBehaviour
     private bool mustFlip;
     public LayerMask whatIsGround, whatIsPlayer;
 
-    public static bool kill;
-
     private bool hitA, hitB;
 
     void Start()
     {
         mustPatrol = true;
-        kill = false;
     }
 
 
